@@ -1,0 +1,104 @@
+.technology {
+  max-width: 1280px;
+  background: #f5f5f5;
+}
+.technology__container {
+  margin: 0 70px;
+  padding: 100px 0;
+}
+.technology__title {
+  margin: 0 auto;
+  max-width: 1140px;
+  color: #000;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: 1px solid #000;
+  text-align: left;
+  padding-bottom: 24px;
+  margin-bottom: 90px;
+}
+.technology__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.technology__text {
+  margin: 0;
+  max-width: 600px;
+  color: #000;
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px; /* 116% */
+  letter-spacing: -2px;
+  margin-bottom: 26px;
+}
+.technology__paragraph {
+  margin: 0;
+  max-width: 460px;
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.56px;
+  margin-bottom: 100px;
+}
+.technology__list {
+  display: grid;
+  grid-template-columns: repeat(7, 90px);
+  grid-template-rows: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.technology__elements {
+  margin: 0;
+  max-width: 90px;
+  min-height: 60px;
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.56px;
+  border-radius: 10px;
+  background: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .technology {
+    max-width: 768px;
+  }
+  .technology__container {
+    margin: 0 50px;
+    padding: 90px 0;
+  }
+  .technology__title {
+    margin: 0 auto;
+    max-width: 668px;
+    margin-bottom: 79px;
+  }
+  .technology__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 83px;
+    max-width: 440px;
+  }
+  .technology__list {
+    grid-template-columns: repeat(7, 84px);
+    grid-template-rows: 57px;
+  }
+  .technology__elements {
+    font-size: 12px;
+  }
+}
