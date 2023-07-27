@@ -3,7 +3,6 @@
   margin: 0 auto;
   padding: 24px 0;
   background: #f5f5f5;
-  /* display: flex; */
 }
 .navtab__list {
   margin: 0 auto;
@@ -19,6 +18,26 @@
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 123.077% */
+  line-height: 16px;
   text-decoration-line: underline;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .navtab {
+    max-width: 768px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .navtab {
+    max-width: 320px;
+    padding: 25px 0;
+  }
+  .navtab__list {
+    gap: 24px;
+    padding-top: 2px;
+  }
+  .navtab__text {
+    font-size: 11px;
+  }
 }
