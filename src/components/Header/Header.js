@@ -3,9 +3,8 @@ import "./Header.css";
 import logo from "../../images/logo.svg";
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 
-function Header({ email, signOut }) {
+function Header() {
   // const location = useLocation();
-
   return (
     <header className="header">
       <div className="header__container">
@@ -27,10 +26,12 @@ function Header({ email, signOut }) {
                 </Link>
               {/* } */}
             {/* /> */}
+
           {/* </div> */}
           {/* )} */}
           {/* {location.pathname === "/signup" && ( */}
           {/* <div> */}
+
             {/* <Route
               path="/signin"
               element={ */}
@@ -40,9 +41,11 @@ function Header({ email, signOut }) {
                 >
                   Войти
                 </Link>
-              {/* } */}
-            {/* /> */}
-          {/* </Routes> */}
+              {/* } 
+
+             />
+
+            </Routes> */}
         </nav>
         
         {/* )} */}

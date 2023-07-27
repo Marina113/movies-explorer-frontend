@@ -10,13 +10,14 @@ import {
 import "./App.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
-import Promo from "../Promo/Promo";
-import NavTab from "../NavTab/NavTab";
-import AboutProject from "../AboutProject/AboutProject";
-import Techs from "../Techs/Techs";
-import AboutMe from "../AboutMe/AboutMe";
-import Portfolio from "../Portfolio/Portfolio";
+// import Promo from "../Promo/Promo";
+// import NavTab from "../NavTab/NavTab";
+// import AboutProject from "../AboutProject/AboutProject";
+// import Techs from "../Techs/Techs";
+// import AboutMe from "../AboutMe/AboutMe";
+// import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
+import Main from "../Main/Main";
 // import Register from '../Register/Register';
 // import Login from '../Login/Login';
 
@@ -30,12 +31,13 @@ function App() {
             {/* <Header email={email}
                     signOut={signOut} /> */}
             <Header />
-            <Promo />
+            <Main />
+            {/* <Promo />
             <NavTab />
             <AboutProject />
             <Techs />
             <AboutMe />
-            <Portfolio />
+            <Portfolio /> */}
             <Footer />
             {/* <Routes>
               <Route path="/signup" element={<Register />} />

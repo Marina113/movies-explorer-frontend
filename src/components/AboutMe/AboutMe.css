@@ -72,6 +72,10 @@
   font-weight: 500;
   line-height: normal;
 }
+.about-me__address:hover{
+  opacity: 0.6;
+  cursor:pointer;
+}
 .about-me__photo {
   width: 270px;
   height: 327px;
