@@ -10,16 +10,14 @@ import {
 import "./App.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
-// import Promo from "../Promo/Promo";
-// import NavTab from "../NavTab/NavTab";
-// import AboutProject from "../AboutProject/AboutProject";
-// import Techs from "../Techs/Techs";
-// import AboutMe from "../AboutMe/AboutMe";
-// import Portfolio from "../Portfolio/Portfolio";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
-// import Register from '../Register/Register';
-// import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -30,21 +28,18 @@ function App() {
           <div className="page">
             {/* <Header email={email}
                     signOut={signOut} /> */}
-            <Header />
-            <Main />
-            {/* <Promo />
-            <NavTab />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio /> */}
-            <Footer />
-            {/* <Routes>
+            {/* <Header /> */}
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/movies" element={<Movies />} />
+              <Route path="/saved-movies" element={<SavedMovies />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/signup" element={<Register />} />
               <Route path="/signin" element={<Login />} />
-            </Routes> */}
+              <Route path="/error" element={<ErrorPage />} />
+            </Routes>
+            {/* <Footer /> */}
 
-            
             {/* <Routes>
               <Route
                 path="/"
@@ -72,14 +67,6 @@ function App() {
                     <Navigate to="/signin" replace />
                   )
                 }
-              />
-              <Route
-                path="/signup"
-                element={<Register handleRegister={handleRegister} />}
-              />
-              <Route
-                path="/signin"
-                element={<Login handleLogin={handleLogin} />}
               />
             </Routes> */}
           </div>

@@ -6,7 +6,7 @@ import { Link, Routes, Route, useLocation } from "react-router-dom";
 function Header() {
   // const location = useLocation();
   return (
-    <header className="header">
+    <header className="header header_theme_light">
       <div className="header__container">
         <a href="#" className="header__logo-link">
           <img

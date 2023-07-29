@@ -1,50 +1,63 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import "./Register.css";
 
 function Register() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <section className="register">
-      <div className="header__container">
-        <a href="#" className="header__logo-link">
+      <div className="register__container">
+        <a href="#" className="register__logo-link">
           <img
             src={logo}
             alt="белый смайл на зеленом фоне"
-            className="header__logo"
+            className="register__logo"
           />
         </a>
         <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form">
+        <label for="name-input" className="register__label">Имя</label>
           <input
             id="name-input"
             type="text"
             className="register__input"
             placeholder="Имя"
+            value={name || ''}
             minLength="2"
             maxLength="20"
             autoComplete="off"
             required
           />
+          <span className="register__error"></span>
+          <label for="email-input" className="register__label">Email</label>
           <input
             id="email-input"
             type="email"
             className="register__input"
             placeholder="Email"
+            value={email || ''}
             minLength="2"
             maxLength="40"
             autoComplete="off"
             required
           />
+          <span className="register__error"></span>
+          <label for="password-input" className="register__label">Пароль</label>
           <input
             id="password-input"
             type="password"
             className="register__input"
             placeholder="Пароль"
+            value={password || ''}
             minLength="2"
             maxLength="12"
             autoComplete="off"
             required
           />
+          <span className="register__error"></span>
           <button type="submit" className="register__button">
             Зарегистрироваться
           </button>
