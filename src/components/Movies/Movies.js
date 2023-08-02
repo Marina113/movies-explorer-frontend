@@ -1,22 +1,19 @@
 import React from "react";
 import "./Movies.css";
-// import { Link, useLocation } from "react-router-dom";
-// import strelka from "../../images/strelkaPortfolio.svg";
+import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import Preloader from "../Preloader/Preloader";
+// import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
+import Footer from "../Footer/Footer";
 
 function Movies() {
   return (
     <section className="movies">
-        {/* <HeaderTwo /> */}
-        <SearchForm />
-        <FilterCheckbox />
-        <Preloader />
-        <MoviesCardList />
-        <MoviesCard />
+      <Header />
+      <SearchForm />
+      {/* <Preloader /> */}
+      <MoviesCardList />
+      <Footer />
     </section>
   );
 }

@@ -71,6 +71,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  text-decoration-line: none;
 }
 .about-me__address:hover{
   opacity: 0.6;
@@ -116,7 +117,7 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .about-me {
     max-width: 320px;
-    margin: 0;
+    margin: 0 auto;
   }
   .about-me__container {
     margin:0 14px;
@@ -131,7 +132,7 @@
   .about-me__photo {
     width: 292px;
     height: 352px;
-    margin-top: 60px;
+    /* margin-top: 60px; */
   }
   .about-me__info {
     max-width: 292px;

@@ -12,10 +12,10 @@ function Footer() {
         <div className="footer__ssylka">
           <p className="footer__time">&copy; 2020</p>
           <div className="footer__yandex">
-            <Link className="footer__text" to="">
+            <Link className="footer__text" to={"//practicum.yandex.ru"}>
               Яндекс.Практикум
             </Link>
-            <Link className="footer__text" to="">
+            <Link className="footer__text" to="//github.com/Marina113/">
               Github
             </Link>
           </div>

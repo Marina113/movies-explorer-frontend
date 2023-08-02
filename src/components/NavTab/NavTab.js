@@ -1,23 +1,27 @@
 import React from "react";
 import "./NavTab.css";
-import { Link, useLocation } from "react-router-dom";
 
 function NavTab() {
   return (
-    <section className="navtab">
-        <div className="navtab__list">
-        <Link className="navtab__text" to="#proekt">
-          О проекте
-        </Link>
-        <Link className="navtab__text" to="">
-          Технологии
-        </Link>
-        <Link className="navtab__text" to="">
-          Студент
-        </Link>
-        </div>
-
-    </section>
+    <nav className="navtab">
+      <ul className="navtab__list">
+        <li className="navtab__list-item">
+          <a href="#proekt" className="navtab__text">
+            О проекте
+          </a>
+        </li>
+        <li className="navtab__list-item">
+          <a href="#technology" className="navtab__text">
+            Технологии
+          </a>
+        </li>
+        <li className="navtab__list-item">
+          <a href="#student" className="navtab__text">
+            Студент
+          </a>
+        </li>
+      </ul>
+    </nav>
   );
 }
 

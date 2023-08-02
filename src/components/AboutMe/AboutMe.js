@@ -1,10 +1,11 @@
 import React from "react";
 import "./AboutMe.css";
 import student from "../../images/student.jpg";
+import { Link } from "react-router-dom";
 
 function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me" id="student">
       <div className="about-me__container">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__info">
@@ -18,7 +19,7 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-&nbsp;разработке, начал
             заниматься фриланс-&nbsp;заказами и ушёл с постоянной работы.
           </p>
-          <p className="about-me__address">Github</p>
+          <Link className="about-me__address" to={"//github.com/Marina113/"}>Github</Link>
         </div>
         <img className="about-me__photo" src={student} alt="фото парня"></img>
       </div>

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Login.css";
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,16 +10,18 @@ function Login() {
   return (
     <section className="login">
       <div className="login__container">
-        <a href="#" className="login__logo-link">
+        <Link to="/" className="login__logo-link">
           <img
             src={logo}
             alt="белый смайл на зеленом фоне"
             className="login__logo"
           />
-        </a>
+        </Link>
         <h2 className="login__title">Рады видеть!</h2>
         <form className="login__form">
-        <label for="email-input" className="register__label">Email</label>
+          <label for="email-input" className="register__label">
+            Email
+          </label>
           <input
             id="login-input"
             type="email"
@@ -32,7 +33,9 @@ function Login() {
             autoComplete="off"
             required
           />
-          <label for="password-input" className="register__label">Пароль</label>
+          <label for="password-input" className="register__label">
+            Пароль
+          </label>
           <input
             id="password-input"
             type="password"

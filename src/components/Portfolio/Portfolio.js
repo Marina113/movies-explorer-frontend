@@ -8,38 +8,47 @@ function Portfolio() {
     <section className="portfolio">
       <div className="portfolio__container">
         <h2 className="portfolio__title">Портфолио</h2>
-        <div className="portfolio__list">
-          <div className="portfolio__sayt">
-            <Link className="portfolio__text" to="">
-              Статичный сайт
+        <ul className="portfolio__list">
+          <li className="portfolio__sayt">
+            <Link
+              className="portfolio__link"
+              to="//github.com/Marina113/how-to-learn"
+            >
+              <p className="portfolio__text">Статичный сайт</p>
+              <img
+                className="portfolio__ssylka"
+                src={strelka}
+                alt="диагональная стрелка-ссылка"
+              ></img>
             </Link>
-            <img
-              className="portfolio__ssylka"
-              src={strelka}
-              alt="диагональная стрелка-ссылка"
-            ></img>
-          </div>
-          <div className="portfolio__sayt">
-            <Link className="portfolio__text" to="https://marina113.github.io/russian-travel/#">
-              Адаптивный сайт
+          </li>
+          <li className="portfolio__sayt">
+            <Link
+              className="portfolio__link"
+              to={"//github.com/Marina113/russian-travel"}
+            >
+              <p className="portfolio__text">Адаптивный сайт</p>
+              <img
+                className="portfolio__ssylka"
+                src={strelka}
+                alt="диагональная стрелка-ссылка"
+              ></img>
             </Link>
-            <img
-              className="portfolio__ssylka"
-              src={strelka}
-              alt="диагональная стрелка-ссылка"
-            ></img>
-          </div>
-          <div className="portfolio__sayt">
-            <Link className="portfolio__text" to="">
-              Одностраничное приложение
+          </li>
+          <li className="portfolio__sayt">
+            <Link
+              className="portfolio__link"
+              to={"//github.com/Marina113/react-mesto-api-full-gha"}
+            >
+              <p className="portfolio__text">Одностраничное приложение</p>
+              <img
+                className="portfolio__ssylka"
+                src={strelka}
+                alt="диагональная стрелка-ссылка"
+              ></img>
             </Link>
-            <img
-              className="portfolio__ssylka"
-              src={strelka}
-              alt="диагональная стрелка-ссылка"
-            ></img>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
   );
