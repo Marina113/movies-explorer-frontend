@@ -5,7 +5,7 @@
 }
 .card-list__container {
   /* width: 100%; */
-  margin: 70px 70px 80px 70px;
+  margin: 80px 70px 80px 70px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
@@ -13,6 +13,7 @@
 }
 .card-list__more {
   margin: 0 auto;
+  padding: 0;
   width: 1140px;
   height: 36px;
   display: inline-block;

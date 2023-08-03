@@ -7,8 +7,10 @@ import Navigation from "../Navigation/Navigation";
 function Header() {
   const location = useLocation();
   return (
-    <header className="header header_theme-light">
-      <div className="header__container">
+    <header className="header header_theme-light" style={{
+      background: useLocation().pathname !== "/" ? "#FFF" : "#465dff"
+    }}>
+      <div className="header__container" >
         <Link to="/" className="header__logo-link">
           <img
             src={logo}

@@ -19,7 +19,7 @@ function Login() {
         </Link>
         <h2 className="login__title">Рады видеть!</h2>
         <form className="login__form">
-          <label for="email-input" className="register__label">
+          <label for="email-input" className="login__label">
             Email
           </label>
           <input
@@ -33,7 +33,7 @@ function Login() {
             autoComplete="off"
             required
           />
-          <label for="password-input" className="register__label">
+          <label for="password-input" className="login__label">
             Пароль
           </label>
           <input
@@ -52,7 +52,7 @@ function Login() {
           </button>
         </form>
         <div className="login__signup">
-          <p>
+          <p className="login__question">
             Ещё не зарегистрированы?{" "}
             <Link to="/signup" className="login__login-link">
               Регистрация

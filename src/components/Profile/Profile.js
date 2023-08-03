@@ -6,8 +6,8 @@ import { useState } from "react";
 
 function Profile() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
   return (
     <section className="profile">
       <Header />

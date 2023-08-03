@@ -1,13 +1,14 @@
 .body{
   margin: 0 auto;
-  max-width: 1280px;
+  /* max-width: 1280px; */
   min-height: 100vh;
+  width: 100%;
 }
 
 .page{
-  max-width: 1280px;
-  margin: 0 auto;
-  width: 100%;
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* width: 100%; */
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-size: 16px;
@@ -22,7 +23,6 @@
 @import url(./components/AboutMe/AboutMe.css);
 @import url(./components/AboutProject/AboutProject.css);
 @import url(./components/App/App.css);
-@import url(./components/FilterCheckbox/FilterCheckbox.css);
 @import url(./components/Footer/Footer.css);
 @import url(./components//Header/Header.css);
 @import url(./components/Login/Login.css);

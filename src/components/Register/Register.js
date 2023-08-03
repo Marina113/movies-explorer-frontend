@@ -63,7 +63,7 @@ function Register() {
             autoComplete="off"
             required
           />
-          <span className="register__error"></span>
+          <span className="register__error">Что-то пошло не так...</span>
           <button type="submit" className="register__button">
             Зарегистрироваться
           </button>

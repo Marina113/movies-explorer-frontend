@@ -11,7 +11,7 @@
 .search__form {
   max-width: 1134px;
   width: 100%;
-  margin: 58px 70px 70px;
+  margin: 56px 70px 42px;
   padding: 0;
   display: flex;
   font-display: row;
@@ -135,12 +135,10 @@
   .search__input {
     padding: 14px 0 14px 19px;
     font-size: 11px;
-    /* position: relative; */
   }
   .search__btn {
     width: 85px;
-    /* position: absolute; */
-    right: 10px;
+    padding: 6px 29px;
   }
   .switch {
     gap: 13px;
