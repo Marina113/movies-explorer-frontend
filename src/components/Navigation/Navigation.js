@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navigation.css";
 import { Link } from "react-router-dom";
 
 function Navigation() {
+  const [active, setActive] = useState(false);
+  const handleOpenMenu = () => {
+    setActive(true);
+  };
+  const handleCloseMenu = () => {
+    setActive(false);
+  };
   return (
-    <nav className="navigation">
-      <div className="navigation__main">
-        <Link className="navigation__movies" to="/movies">
-          Фильмы
-        </Link>
-        <Link className="navigation__saved-movies" to="/saved-movies">
-          Сохранённые фильмы
-        </Link>
+    <div className="navigation">
+      <div className="navigation__burger" onClick={handleOpenMenu}>
+        <span className="navigation__burger-middle"></span>
       </div>
-      <Link className="navigation__profile" to="/profile">
-        Аккаунт
-      </Link>
-    </nav>
+      <nav className={active ? "navigation__menu_active" : "navigation__menu"}>
+        <div className="burger__blur" />
+        <button
+          className="burger__close"
+          type="button"
+          onClick={handleCloseMenu}
+        />
+        <ul className="navigation__list">
+          <li className="navigation__links">
+            <Link className="navigation__link navigation__link_main" to="/">
+              Главная
+            </Link>
+            <Link className="navigation__link" to="/movies">
+              Фильмы
+            </Link>
+            <Link className="navigation__link" to="/saved-movies">
+              Сохранённые фильмы
+            </Link>
+          </li>
+          <li className="navigation__links">
+            <Link className="navigation__profile" to="/profile">
+              Аккаунт
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }
 

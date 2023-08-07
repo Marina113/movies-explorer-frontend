@@ -9,7 +9,7 @@ function Profile() {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   return (
-    <section className="profile">
+    <main className="profile">
       <Header />
       <div className="profile__container">
         <h1 className="profile__title">Привет, Виталий!</h1>
@@ -28,6 +28,7 @@ function Profile() {
               maxLength="20"
               autoComplete="off"
               required
+              disabled
             />
           </div>
           <div className="profile__email">
@@ -44,6 +45,7 @@ function Profile() {
               maxLength="40"
               autoComplete="off"
               required
+              disabled
             />
           </div>
           <div className="profile__edit">
@@ -62,7 +64,7 @@ function Profile() {
           </div>
         </form>
       </div>
-    </section>
+    </main>
   );
 }
 

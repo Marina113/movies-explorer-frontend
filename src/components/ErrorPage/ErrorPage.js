@@ -7,7 +7,7 @@ function ErrorPage() {
   const navigate = useNavigate();
 
   return (
-    <section className="error-page">
+    <main className="error-page">
       <div className="error-page__container">
         <h1 className="error-page__title">404</h1>
         <p className="error-page__paragraph">Страница не найдена</p>
@@ -15,7 +15,7 @@ function ErrorPage() {
           Назад
         </Link>
       </div>
-    </section>
+    </main>
   );
 }
 

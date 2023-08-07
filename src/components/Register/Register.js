@@ -8,7 +8,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <section className="register">
+    <main className="register">
       <div className="register__container">
         <Link to="/" className="register__logo-link">
           <img
@@ -77,7 +77,7 @@ function Register() {
           </p>
         </div>
       </div>
-    </section>
+    </main>
   );
 }
 

@@ -36,6 +36,11 @@
   border: none;
   outline: none;
 }
+.search__input:focus {
+  border: 2px solid #3861f5;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
 .search__btn {
   padding: 0;
   margin: 6px 5px 6px 0;

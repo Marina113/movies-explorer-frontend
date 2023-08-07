@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   return (
-    <section className="login">
+    <main className="login">
       <div className="login__container">
         <Link to="/" className="login__logo-link">
           <img
@@ -60,7 +60,7 @@ function Login() {
           </p>
         </div>
       </div>
-    </section>
+    </main>
   );
 }
 

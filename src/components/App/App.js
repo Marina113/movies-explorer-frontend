@@ -23,7 +23,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="App">
+      <main className="App">
         <div className="body">
           <div className="page">
             {/* <Header /> */}
@@ -39,7 +39,7 @@ function App() {
             {/* <Footer /> */}
           </div>
         </div>
-      </div>
+      </main>
     </CurrentUserContext.Provider>
   );
 }
