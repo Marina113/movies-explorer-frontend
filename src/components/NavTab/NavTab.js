@@ -4,6 +4,7 @@ import "./NavTab.css";
 function NavTab() {
   return (
     <nav className="navtab">
+      <div className="navtab__container">
       <ul className="navtab__list">
         <li className="navtab__list-item">
           <a href="#proekt" className="navtab__text">
@@ -21,6 +22,8 @@ function NavTab() {
           </a>
         </li>
       </ul>
+      </div>
+      
     </nav>
   );
 }

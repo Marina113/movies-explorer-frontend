@@ -1,6 +1,7 @@
 import React from 'react';
 // import Card from "./Card";
 // import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import "./Main.css";
 import Header from "../Header/Header";
 import Promo from "../Promo/Promo";
 import NavTab from "../NavTab/NavTab";

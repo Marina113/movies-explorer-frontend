@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Navigation.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navigation() {
+  const location = useLocation();
   const [active, setActive] = useState(false);
   const handleOpenMenu = () => {
     setActive(true);
@@ -27,10 +28,24 @@ function Navigation() {
             <Link className="navigation__link navigation__link_main" to="/">
               Главная
             </Link>
-            <Link className="navigation__link" to="/movies">
+            <Link
+              className={
+                location.pathname === "/movies"
+                  ? "navigation__link_active"
+                  : "navigation__link"
+              }
+              to="/movies"
+            >
               Фильмы
             </Link>
-            <Link className="navigation__link" to="/saved-movies">
+            <Link
+              className={
+                location.pathname === "/saved-movies"
+                  ? "navigation__link_active"
+                  : "navigation__link"
+              }
+              to="/saved-movies"
+            >
               Сохранённые фильмы
             </Link>
           </li>

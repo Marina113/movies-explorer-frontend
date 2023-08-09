@@ -4,7 +4,7 @@
 }
 .about-project__container {
   margin: 0 70px;
-  padding-bottom: 27px;
+  padding-bottom: 30px;
 }
 .about-project__info {
   display: flex;
@@ -23,9 +23,9 @@
   letter-spacing: -0.88px;
   text-align: left;
   border-bottom: 1px solid #000;
-  padding-bottom: 21px;
+  padding-bottom: 20px;
   margin-bottom: 70px;
-  padding-top: 110px;
+  padding-top: 113px;
 }
 .about-project__text {
   margin: 0;
@@ -95,7 +95,7 @@
   }
   .about-project__title {
     margin-bottom: 68px;
-    padding-top: 90px;
+    padding-top: 88px;
     max-width: 668px;
   }
   .about-project__text {
@@ -134,7 +134,7 @@
   .about-project__title {
     max-width: 284px;
     font-size: 18px;
-    padding-bottom: 28px;
+    padding-bottom: 25px;
     margin-bottom: 60px;
     padding-top: 70px;
   }
@@ -150,7 +150,7 @@
   }
   .about-project__time {
     grid-template-columns: 100px 184px;
-    margin-bottom: 95px;
+    margin-bottom: 93px;
   }
   .about-project__weeks {
     font-size: 11px;
