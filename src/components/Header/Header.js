@@ -3,7 +3,6 @@ import "./Header.css";
 import logo from "../../images/logo.svg";
 import { Link, useLocation } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
-// import Burger from "../Burger/Burger";
 
 function Header() {
   const location = useLocation();
@@ -34,7 +33,6 @@ function Header() {
             </nav>
           )}
           {location.pathname === "/movies" && <Navigation />}
-          {/* {location.pathname === "/movies" && (<Burger />)} */}
           {location.pathname === "/saved-movies" && <Navigation />}
           {location.pathname === "/profile" && <Navigation />}
         </div>

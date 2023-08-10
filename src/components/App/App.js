@@ -21,6 +21,7 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
