@@ -9,11 +9,11 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-// import Header from "../Header/Header";
+import Header from "../Header/Header";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
-// import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -23,10 +23,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <main className="App">
+      <div className="App">
         <div className="body">
-          <div className="page">
-            {/* <Header /> */}
+        {/* <Header /> */}
+          <div className="page">            
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/movies" element={<Movies />} />
@@ -36,10 +36,10 @@ function App() {
               <Route path="/signin" element={<Login />} />
               <Route path="/*" element={<ErrorPage />} />
             </Routes>
-            {/* <Footer /> */}
           </div>
+          {/* <Footer /> */}
         </div>
-      </main>
+      </div>
     </CurrentUserContext.Provider>
   );
 }

@@ -14,6 +14,7 @@ function SearchForm() {
           minLength="2"
           maxLength="40"
           autoComplete="off"
+          required
         />
         <button className="search__btn" type="submit"></button>
       </form>

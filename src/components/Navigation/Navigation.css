@@ -1,4 +1,4 @@
-.burger__close {
+.navigation__burger-close {
   display: none;
 }
 .navigation__list {
@@ -110,7 +110,7 @@ opacity: 0.3;
 position: absolute;
 background: #000;
   } */
-  .burger__close {
+  .navigation__burger-close{
     position: absolute;
     background-image: url(../../images/close-burger.svg);
     background-position: center;
@@ -123,7 +123,7 @@ background: #000;
     border: none;
     display: block;
   }
-  .burger__close:hover {
+  .navigation__burger-close:hover {
     opacity: 0.7;
     cursor: pointer;
   }
@@ -213,7 +213,7 @@ background: #000;
   .navigation__links {
     gap: 24px;
   }
-  .burger__close {
+  .navigation__burger-close {
     top: 13px;
     right: 13px;
   }

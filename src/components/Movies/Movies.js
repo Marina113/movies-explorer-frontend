@@ -8,13 +8,15 @@ import Footer from "../Footer/Footer";
 
 function Movies() {
   return (
-    <main className="movies">
+    <>
       <Header />
-      <SearchForm />
-      {/* <Preloader /> */}
-      <MoviesCardList />
+      <main className="movies">
+        <SearchForm />
+        {/* <Preloader /> */}
+        <MoviesCardList />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

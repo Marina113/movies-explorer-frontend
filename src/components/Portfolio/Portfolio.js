@@ -1,6 +1,5 @@
 import React from "react";
 import "./Portfolio.css";
-import { Link, useLocation } from "react-router-dom";
 import strelka from "../../images/strelkaPortfolio.svg";
 
 function Portfolio() {
@@ -10,9 +9,12 @@ function Portfolio() {
         <h2 className="portfolio__title">Портфолио</h2>
         <ul className="portfolio__list">
           <li className="portfolio__sayt">
-            <Link
+            <a
+              href="https://github.com/Marina113/how-to-learn"
               className="portfolio__link"
-              to="//github.com/Marina113/how-to-learn"
+              title="how-to-learn"
+              target="_blank"
+              rel="noreferrer"
             >
               <p className="portfolio__text">Статичный сайт</p>
               <img
@@ -20,12 +22,15 @@ function Portfolio() {
                 src={strelka}
                 alt="диагональная стрелка-ссылка"
               ></img>
-            </Link>
+            </a>
           </li>
           <li className="portfolio__sayt">
-            <Link
+            <a
+              href="https://github.com/Marina113/russian-travel"
               className="portfolio__link"
-              to={"//github.com/Marina113/russian-travel"}
+              title="russian-travel"
+              target="_blank"
+              rel="noreferrer"
             >
               <p className="portfolio__text">Адаптивный сайт</p>
               <img
@@ -33,12 +38,15 @@ function Portfolio() {
                 src={strelka}
                 alt="диагональная стрелка-ссылка"
               ></img>
-            </Link>
+            </a>
           </li>
           <li className="portfolio__sayt">
-            <Link
+            <a
+              href="https://github.com/Marina113/react-mesto-api-full-gha"
               className="portfolio__link"
-              to={"//github.com/Marina113/react-mesto-api-full-gha"}
+              title="react-mesto-api-full-gha"
+              target="_blank"
+              rel="noreferrer"
             >
               <p className="portfolio__text">Одностраничное приложение</p>
               <img
@@ -46,7 +54,7 @@ function Portfolio() {
                 src={strelka}
                 alt="диагональная стрелка-ссылка"
               ></img>
-            </Link>
+            </a>
           </li>
         </ul>
       </div>

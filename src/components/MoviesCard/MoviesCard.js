@@ -16,8 +16,8 @@ const location = useLocation();
         <div className="movie__info">
           <h2 className="movie__name">33 слова о дизайне</h2>
           <button type="button" className={location.pathname === "/movies"
-                    ? "movie__saved movie__saved_active"
-                    : "movie__saved movie__saved_delete"}   />
+                    ? "movie__btn-saved"
+                    : "movie__btn-delete"}   />
         </div>
         <p className="movie__duration">1ч42мин</p>
       </div>
@@ -28,8 +28,8 @@ const location = useLocation();
       <div className="movie__info">
         <h2 className="movie__name">33 слова о дизайне</h2>
         <button type="button" className={location.pathname === "/movies"
-                    ? "movie__saved movie__saved_active"
-                    : "movie__saved movie__saved_delete"}   />
+                   ? "movie__btn-saved"
+                   : "movie__btn-delete"}   />
       </div>
       <p className="movie__duration">1ч42мин</p>
     </div>

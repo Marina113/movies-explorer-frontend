@@ -17,9 +17,9 @@ function Navigation() {
         <span className="navigation__burger-middle"></span>
       </div>
       <nav className={active ? "navigation__menu_active" : "navigation__menu"}>
-        <div className="burger__blur" />
+        {/* <div className="navigation__burger-blur" /> */}
         <button
-          className="burger__close"
+          className="navigation__burger-close"
           type="button"
           onClick={handleCloseMenu}
         />

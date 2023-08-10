@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import Card from "./Card";
 // import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import "./Main.css";
@@ -12,20 +12,21 @@ import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
 
 function Main() {
-    // const currentUser = React.useContext(CurrentUserContext);
-
-    return (
-        <main className="content">
-            <Header />
-            <Promo />
-            <NavTab />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio />
-            <Footer />
-        </main>
-    );
+  // const currentUser = React.useContext(CurrentUserContext);
+  return (
+    <>
+      <Header />
+      <main className="content">
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default Main;
