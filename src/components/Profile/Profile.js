@@ -2,12 +2,33 @@ import React from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile() {
+function Profile({ onUpdateUser }) {
   const navigate = useNavigate();
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
+  function handleProfileSubmit(e) {
+    e.preventDefault();
+    onUpdateUser({ name: name, email: email });
+  }
+
   return (
     <>
       <Header />
@@ -24,7 +45,8 @@ function Profile() {
                 type="text"
                 className="profile__input"
                 placeholder="Виталий"
-                // value={name || ""}
+                value={name}
+                onChange={handleChangeName}
                 minLength="2"
                 maxLength="20"
                 autoComplete="off"
@@ -41,7 +63,8 @@ function Profile() {
                 type="email"
                 className="profile__input"
                 placeholder="pochta@yandex.ru"
-                // value={email || ""}
+                value={email}
+                onChange={handleChangeEmail}
                 minLength="2"
                 maxLength="40"
                 autoComplete="off"
@@ -50,7 +73,11 @@ function Profile() {
               />
             </div>
             <div className="profile__edit">
-              <button type="submit" className="profile__redactor">
+              <button
+                type="submit"
+                className="profile__redactor"
+                onChange={handleProfileSubmit}
+              >
                 Редактировать
               </button>
               <Link
