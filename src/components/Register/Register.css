@@ -34,6 +34,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* position: relative; */
 }
 .register__label {
   color: #a0a0a0;
@@ -67,14 +68,25 @@
 .register__error {
   margin: 0;
   color: #ee3465;
-  font-size: 10px;
+  font-size: 8px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   margin-top: 10px;
-  min-height: 12px;
+  min-height: 18px;
   height: 100%;
 }
+.register__error_active{
+  opacity: 1;
+}
+/* .find {
+  position: absolute;
+  display: none;
+  background: #FFF;
+}
+.register__error:valid + .find {
+  display: block;
+} */
 .register__button {
   margin-top: 69px;
   border-radius: 3px;
@@ -91,6 +103,10 @@
 }
 .register__button:hover {
   opacity: 0.7;
+  cursor: pointer;
+}
+.register__button:disabled {
+  background: #b8b2b2;
   cursor: pointer;
 }
 .register__signin {

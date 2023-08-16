@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ onUpdateUser }) {
+function Profile({ onSignOut, onUpdateUser }) {
   const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = useState("");
@@ -83,9 +83,7 @@ function Profile({ onUpdateUser }) {
               <Link
                 className="profile__out"
                 to=""
-                onClick={() => {
-                  navigate(-1);
-                }}
+                onClick={onSignOut}
               >
                 Выйти из аккаунта
               </Link>

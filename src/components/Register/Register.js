@@ -1,42 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Register.css";
-import {useFormWithValidation} from "../../utils/FormAndValid";
+import { useFormWithValidation } from "../../utils/FormAndValid";
 
 function Register({ handleRegister, isLoading }) {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
-  // function handleChangeName(evt) {
-  //   setName(evt.target.value);
-  // }
-
-  // function handleChangeEmail(evt) {
-  //   setEmail(evt.target.value);
-  // }
-
-  // function handleChangePassword(evt) {
-  //   setPassword(evt.target.value);
-  // }
-
-  const handleRegisterSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     handleRegister(values.name, values.email, values.password);
+    resetForm();
   };
 
-  // const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  // useEffect(() => {
-  //   if (!values.name || !values.email || !values.password) {
-  //     setIsDisabled(true);
-  //   } else {
-  //     setIsDisabled(false);
-  //   }
-  // }, [!values.name || !values.email || !values.password]);
+  //валидация формы
+  useEffect(() => {
+    if (!values.name || !values.email || !values.password) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, []);
 
   return (
     <main className="register">
@@ -49,29 +40,43 @@ function Register({ handleRegister, isLoading }) {
           />
         </Link>
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form className="register__form" onSubmit={handleRegisterSubmit}>
+        <form
+          className="register__form"
+          onSubmit={handleSubmit}
+          isDisabled={isDisabled}
+        >
           <label htmlFor="name-input" className="register__label">
             Имя
           </label>
           <input
             id="name-input"
             type="text"
+            name="name"
             className="register__input"
             onChange={handleChange}
             placeholder="Имя"
             value={values.name}
             minLength="2"
             maxLength="30"
+            // pattern="^[A-Za-zА-Яа-яЁё](\s[-])$"
             autoComplete="off"
             required
           />
-          <span className="register__error">{errors.name || ''}</span>
+          {/* <span className="register__error">{errors.name || ""}</span> */}
+          <span
+            className={`register__error ${
+              !isValid ? "register__error_active" : ""
+            }`}
+          >
+            {errors.name || ""}
+          </span>
           <label htmlFor="email-input" className="register__label">
             Email
           </label>
           <input
             id="email-input"
             type="email"
+            name="email"
             className="register__input"
             onChange={handleChange}
             placeholder="Email"
@@ -81,13 +86,21 @@ function Register({ handleRegister, isLoading }) {
             autoComplete="off"
             required
           />
-          <span className="register__error">{errors.email || ''}</span>
+          {/* <span className="register__error">{errors.email || ""}</span> */}
+          <span
+            className={`register__error ${
+              !isValid ? "register__error_active" : ""
+            }`}
+          >
+            {errors.email || ""}
+          </span>
           <label htmlFor="password-input" className="register__label">
             Пароль
           </label>
           <input
             id="password-input"
             type="password"
+            name="password"
             className="register__input"
             onChange={handleChange}
             placeholder="Пароль"
@@ -97,13 +110,25 @@ function Register({ handleRegister, isLoading }) {
             autoComplete="off"
             required
           />
-          <span className="register__error">{errors.password || ''}</span>
+          {/* <span className="register__error">Что-то пошло не так...</span> */}
+          <span
+            className={`register__error ${
+              !isValid ? "register__error_active" : ""
+            }`}
+          >
+            {errors.password || ""}
+          </span>
           <button
             type="submit"
             className="register__button"
-            // disabled={isLoading}
             disabled={!isValid}
           >
+            {/* <button
+            type="submit"
+            className="register__button"
+            disabled={isLoading}
+            disabled={!isValid}
+          > */}
             Зарегистрироваться
           </button>
         </form>

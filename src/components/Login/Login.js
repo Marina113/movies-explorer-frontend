@@ -1,24 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Login.css";
+import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Login({handleLogin, isLoading}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ handleLogin, isLoading }) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
-  function handleChangePassword(evt) {
-    setPassword(evt.target.value); 
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(values.email, values.password);
+    resetForm();
+  };
 
-  function handleLoginSubmit(e) {
-      e.preventDefault();
-      handleLogin(email, password);
-}
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  //валидация формы
+  useEffect(() => {
+    if (!values.name || !values.email || !values.password) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, []);
 
   return (
     <main className="login">
@@ -31,7 +39,11 @@ function Login({handleLogin, isLoading}) {
           />
         </Link>
         <h2 className="login__title">Рады видеть!</h2>
-        <form className="login__form" onSubmit={handleLoginSubmit}>
+        <form
+          className="login__form"
+          onSubmit={handleSubmit}
+          isDisabled={isDisabled}
+        >
           <label htmlFor="email-input" className="login__label">
             Email
           </label>
@@ -39,30 +51,42 @@ function Login({handleLogin, isLoading}) {
             id="login-input"
             type="email"
             className="login__input"
-            value={email}
+            name="email"
+            value={values.email}
             placeholder="Email"
-            onChange={handleChangeEmail}
+            onChange={handleChange}
             minLength="2"
             maxLength="40"
             autoComplete="off"
             required
           />
+          <span
+            className={`login__error ${!isValid ? "login__error_active" : ""}`}
+          >
+            {errors.email || ""}
+          </span>
           <label htmlFor="password-input" className="login__label">
             Пароль
           </label>
           <input
             id="password-input"
             type="password"
+            name="password"
             className="login__input"
-            onChange={handleChangePassword}
+            onChange={handleChange}
             placeholder="Пароль"
-            value={password}
+            value={values.password}
             minLength="2"
             maxLength="12"
             autoComplete="off"
             required
           />
-          <button type="submit" className="login__button"  disabled={isLoading}>
+          <span
+            className={`login__error ${!isValid ? "login__error_active" : ""}`}
+          >
+            {errors.password || ""}
+          </span>
+          <button type="submit" className="login__button" disabled={!isValid}>
             Войти
           </button>
         </form>

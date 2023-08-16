@@ -143,6 +143,21 @@ function App() {
       });
   }
 
+  function handleSignOut() {
+    mainApi
+      .signout()
+      .then((res) => {
+        setIsLoggedIn(false);
+        // setCurrentUser({});
+        localStorage.removeItem("token");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -178,6 +193,7 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     onUpdateProfile={handleUpdateProfile}
                     isLoading={isLoading}
+                    onSignOut={handleSignOut}
                     error={error}
                   />
                 }
