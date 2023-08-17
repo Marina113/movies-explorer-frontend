@@ -11,14 +11,13 @@ function Register({ handleRegister, isLoading }) {
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegister(values.name, values.email, values.password);
     resetForm();
   };
-
-  const [isDisabled, setIsDisabled] = useState(true);
 
   //валидация формы
   useEffect(() => {
@@ -58,7 +57,7 @@ function Register({ handleRegister, isLoading }) {
             value={values.name}
             minLength="2"
             maxLength="30"
-            // pattern="^[A-Za-zА-Яа-яЁё](\s[-])$"
+            // pattern="/^[A-Za-zА-Яа-яЁё\\-\\s]+$/"
             autoComplete="off"
             required
           />

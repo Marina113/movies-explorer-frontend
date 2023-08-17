@@ -1,32 +1,51 @@
 import React from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Profile({ onSignOut, onUpdateUser }) {
-  const navigate = useNavigate();
+function Profile({ onSignOut, onUpdateProfile }) {
+  // const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
+  //блокировка формы,если значения полей одинаковое
+  // useEffect(() => {
+  //   if (
+  //     currentUser.name === values.name &&
+  //     currentUser.email === values.email
+  //   ) {
+  //     setIsDisabled(true);
+  //   } else {
+  //     setIsDisabled(false);
+  //   }
+  // }, [currentUser, values]);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
+    if(currentUser){
+      resetForm({name: currentUser.name || "", email: currentUser.email || ""});
+    }
 
+  },[currentUser, resetForm])
+
+  //обработчик отправки формы
   function handleProfileSubmit(e) {
     e.preventDefault();
-    onUpdateUser({ name: name, email: email });
+    if(isValid){
+      onUpdateProfile({name: values.name, email: values.email});
+    }
+    setIsDisabled(false);
+  }
+
+  //разблокировка полей ввода
+  function handleEditButton() {
+    setIsDisabled(true);
   }
 
   return (
@@ -34,59 +53,95 @@ function Profile({ onSignOut, onUpdateUser }) {
       <Header />
       <main className="profile">
         <div className="profile__container">
-          <h1 className="profile__title">Привет, Виталий!</h1>
-          <form className="profile__form">
+          <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+          <form
+            className="profile__form"
+            handleSubmit={handleProfileSubmit}
+            // isDisabled={!isDisabled}
+          >
             <div className="profile__name">
-              <label for="name-input" className="profile__label">
+              <label htmlFor="name-input" className="profile__label">
                 Имя
               </label>
               <input
                 id="name-input"
                 type="text"
+                name="name"
                 className="profile__input"
-                placeholder="Виталий"
-                value={name}
-                onChange={handleChangeName}
+                // placeholder={currentUser.name}
+                value={values.name || ''}
+                onChange={handleChange}
                 minLength="2"
                 maxLength="20"
                 autoComplete="off"
+                // pattern=""
+                // disabled={!isDisabled}
                 required
-                disabled
+                readOnly={!isDisabled}
               />
             </div>
+            <span
+              className={`profile__error ${
+                !isValid ? "profile__error_active-up" : ""
+              }`}
+            >
+              {errors.name || ""}
+            </span>
             <div className="profile__email">
-              <label for="email-input" className="profile__label">
+              <label htmlFor="email-input" className="profile__label">
                 Email
               </label>
               <input
                 id="email-input"
                 type="email"
+                name="email"
                 className="profile__input"
-                placeholder="pochta@yandex.ru"
-                value={email}
-                onChange={handleChangeEmail}
+                // placeholder={currentUser.email}
+                value={values.email || ''}
+                onChange={handleChange}
                 minLength="2"
                 maxLength="40"
                 autoComplete="off"
+                // pattern=""
+                // disabled={!isDisabled}
                 required
-                disabled
+                readOnly={!isDisabled}
               />
             </div>
+            <span
+              className={`profile__error ${
+                !isValid ? "profile__error_active-down" : ""
+              }`}
+            >
+              {errors.email || ""}
+            </span>
             <div className="profile__edit">
-              <button
-                type="submit"
-                className="profile__redactor"
-                onChange={handleProfileSubmit}
-              >
-                Редактировать
-              </button>
-              <Link
-                className="profile__out"
-                to=""
-                onClick={onSignOut}
-              >
-                Выйти из аккаунта
-              </Link>
+
+              {!isDisabled ? (
+                <>
+                  <button
+                    type="button"
+                    className="profile__redactor"
+                    onClick={handleEditButton}
+                  >
+                    Редактировать
+                  </button>
+                  <Link className="profile__out" to="" onClick={onSignOut}>
+                    Выйти из аккаунта
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="submit"
+                    className="profile__save"
+                    disabled={!isValid}
+                    onClick={handleProfileSubmit}
+                  >
+                    Сохранить
+                  </button>
+                </>
+              )}
             </div>
           </form>
         </div>

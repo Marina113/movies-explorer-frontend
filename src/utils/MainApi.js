@@ -81,18 +81,7 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  signout() {
-    const token = localStorage.getItem("token");
-    return fetch(`${this._baseUrl}/signout`,{
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    .then(this._checkResponse);
-  };
+  
 }
 
 const mainApi = new MainApi({

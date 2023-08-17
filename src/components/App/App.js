@@ -79,6 +79,7 @@ function App() {
     }
   };
 
+  //обработчик регистрации
   function handleRegister(name, email, password) {
     setIsLoading(true);
     mainApi
@@ -100,6 +101,7 @@ function App() {
       });
   }
 
+  //обработчик авторизации
   function handleLogin(email, password) {
     setIsLoading(true);
     mainApi
@@ -125,13 +127,7 @@ function App() {
       });
   }
 
-  // function signOut() {
-  //   localStorage.removeItem("token");
-  //   setEmail("");
-  //   setIsLoggedIn(false);
-  //   navigate("/");
-  // }
-
+  //обработчик редактирования профиля
   function handleUpdateProfile(data) {
     mainApi
       .setUserInfo(data)
@@ -143,20 +139,14 @@ function App() {
       });
   }
 
+  //обработчик выхода из аккаунта
   function handleSignOut() {
-    mainApi
-      .signout()
-      .then((res) => {
+    localStorage.clear();
         setIsLoggedIn(false);
-        // setCurrentUser({});
+        setCurrentUser({});
         localStorage.removeItem("token");
         navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
