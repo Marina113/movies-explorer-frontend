@@ -1,15 +1,39 @@
-// import {MOVIES_URL} from './constants';
+class MoviesApi {
+  constructor({ headers, url }) {
+    this._headers = headers;
+    this._url = url;
+  }
 
-function checkResponse(res){
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
-  
-  // export const MOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
-  export const MOVIES_URL = 'http://localhost:3000';
-  
-  
-  
+
+  //********Загрузка фильмов с сервера
+  getInitialMovies = () => {
+    // const token = localStorage.getItem("token");
+    return fetch(`${this._url}/beatfilm-movies`, {
+      method: "GET",
+      headers: {
+        // "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(this._checkResponse)
+    .catch((err) => console.log(err));
+  }
+}
+
+const moviesApi = new MoviesApi({
+  url: "https://api.nomoreparties.co",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default moviesApi;
+
+  // export const MOVIES_URL = 'http://localhost:3000';  
   

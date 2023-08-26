@@ -8,6 +8,14 @@
   align-items: flex-start;
   background: #fff;
 }
+.movies__nothing{
+  margin: 0 auto;
+  color: #df0a0a;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .movies {
     max-width: 768px;

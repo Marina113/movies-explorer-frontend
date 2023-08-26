@@ -73,6 +73,9 @@
   line-height: normal;
   min-height: 18px;
   height: 100%;
+  max-width: 390px;
+  display: block;
+  flex-wrap: wrap;
 }
 .login__error_active {
   opacity: 1;

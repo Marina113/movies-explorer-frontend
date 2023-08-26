@@ -68,7 +68,7 @@ function Profile({ onSignOut, onUpdateProfile }) {
                 type="text"
                 name="name"
                 className="profile__input"
-                // placeholder={currentUser.name}
+                placeholder={currentUser.name}
                 value={values.name || ''}
                 onChange={handleChange}
                 minLength="2"
@@ -96,7 +96,7 @@ function Profile({ onSignOut, onUpdateProfile }) {
                 type="email"
                 name="email"
                 className="profile__input"
-                // placeholder={currentUser.email}
+                placeholder={currentUser.email}
                 value={values.email || ''}
                 onChange={handleChange}
                 minLength="2"

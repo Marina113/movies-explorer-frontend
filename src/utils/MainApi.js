@@ -1,5 +1,3 @@
-// import {MAIN_URL} from './constants';
-
 class MainApi {
   constructor({ headers, url }) {
     this._headers = headers;
@@ -45,17 +43,6 @@ class MainApi {
       .then((data) => data);
   };
 
-  getInitialMovies() {
-    const token = localStorage.getItem("token");
-    return fetch(`${this._url}/movies`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(this._checkResponse);
-  }
-
   //********Информация о пользователе с сервера */
   getUserInfo() {
     const token = localStorage.getItem("token");
@@ -81,7 +68,62 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  
+  //********Добавление фильмов
+  saveMovie(movie) {
+    const token = localStorage.getItem("token");
+    console.log(movie);
+    return fetch(`${this._url}/movies`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image,
+        // image: `${"https://api.nomoreparties.co/"}${image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.thumbnail,
+        // thumbnail: `${"https://api.nomoreparties.co/"}${image.formats.thumbnail.url}`,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        movieId: movie.movieId,
+      }),
+    })
+      .then(this._checkResponse)
+      .then((res) => {
+        return res;
+      });
+  }
+
+  //********Удаление фильма
+  deleteMovie(movieId) {
+    // console.log(movieId);
+    const token = localStorage.getItem("token");
+    return fetch(`${this._url}/movies/${movieId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkResponse);
+  }
+
+  //********Получение сохраненных фильмов
+  getSavedMovies() {
+    const token = localStorage.getItem("token");
+    return fetch(`${this._url}/movies`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkResponse);
+  }
 }
 
 const mainApi = new MainApi({

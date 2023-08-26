@@ -57,7 +57,7 @@ function Register({ handleRegister, isLoading }) {
             value={values.name}
             minLength="2"
             maxLength="30"
-            // pattern="/^[A-Za-zА-Яа-яЁё\\-\\s]+$/"
+            // pattern="/^[A-Za-zА-Яа-я -]{2,}$/"
             autoComplete="off"
             required
           />
@@ -104,7 +104,7 @@ function Register({ handleRegister, isLoading }) {
             onChange={handleChange}
             placeholder="Пароль"
             value={values.password}
-            minLength="2"
+            minLength="4"
             maxLength="12"
             autoComplete="off"
             required

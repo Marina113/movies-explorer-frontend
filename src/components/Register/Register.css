@@ -75,6 +75,9 @@
   margin-top: 10px;
   min-height: 18px;
   height: 100%;
+  max-width: 390px;
+  display: block;
+  flex-wrap: wrap;
 }
 .register__error_active{
   opacity: 1;
