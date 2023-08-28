@@ -42,7 +42,7 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
           <form
             className="profile__form"
-            handleSubmit={handleProfileSubmit}
+            onSubmit={handleProfileSubmit}
             // isDisabled={!isDisabled}
           >
             <div className="profile__name">

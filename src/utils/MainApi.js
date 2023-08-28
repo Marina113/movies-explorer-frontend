@@ -128,7 +128,8 @@ class MainApi {
 
 const mainApi = new MainApi({
   // url: MAIN_URL,
-  url: "http://localhost:3000",
+  // url: "http://localhost:3000",
+  url: "https://api.marina.nomoredomains.xyz",
   headers: {
     "Content-Type": "application/json",
   },

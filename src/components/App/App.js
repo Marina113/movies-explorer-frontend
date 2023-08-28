@@ -40,7 +40,7 @@ function App() {
   const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
   const [checkbox, setCheckbox] = useState(false);
-
+  const [checkboxSaved, setCheckboxSaved] = useState(false);
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
   const findedLocalShortMovies = localStorage.getItem("findedShortMovies" || []);
   let findedMovies = JSON.parse(findedLocalMovies);
@@ -99,12 +99,16 @@ function App() {
 
   useEffect(() => {
     // console.log(findedShortMovies);
-    if (checkbox) {
+    if (checkboxSaved) {
       setSearchedSavedMovies(findedShortMoviesSaved);
     } else {
       setSearchedSavedMovies(findedMoviesSaved);
     }
-  }, [checkbox]);
+  }, [checkboxSaved]);
+
+  useEffect(() =>{
+    searchMoviesSaved()
+  },[savedMovies]);
 
   function changeArray(movie) {
     const newList = {};
@@ -322,7 +326,7 @@ function App() {
       );
       localStorage.setItem("findedMoviesSaved", JSON.stringify(findedMoviesSaved));
       localStorage.setItem("findedShortMoviesSaved",JSON.stringify(findedShortMoviesSaved));
-      if (checkbox) {
+      if (checkboxSaved) {
         setSearchedSavedMovies(findedShortMoviesSaved);
       } else {
         setSearchedSavedMovies(findedMoviesSaved);
@@ -380,16 +384,16 @@ function App() {
                     isLoading={isLoading}
                     onDislikeMovie={handleDeleteMovie}
                     savedMovies={savedMovies}
-                    movies={savedMovies}
-                    // movies={searchedSavedMovies}
+                    // movies={savedMovies}
+                    movies={searchedSavedMovies}
                     // searchedMovies={searchedSavedMovies}
                     handleSearchSubmit={handleSearchSavedSubmit}
                     handleSearchChange={handleSearchSavedChange}
                     isSearched={isSearchedSaved}
                     isResult={isResultSaved}
                     searchText={searchSavedText}
-                    setCheckbox={setCheckbox}
-                    checkbox={checkbox}
+                    setCheckbox={setCheckboxSaved}
+                    checkbox={checkboxSaved}
                   />
                 }
               />

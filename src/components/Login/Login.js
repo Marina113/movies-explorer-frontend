@@ -41,7 +41,7 @@ function Login({ handleLogin, isLoading, error }) {
         <form
           className="login__form"
           onSubmit={handleSubmit}
-          isDisabled={isDisabled}
+          disabled={isDisabled}
         >
           <label htmlFor="email-input" className="login__label">
             Email
@@ -51,7 +51,7 @@ function Login({ handleLogin, isLoading, error }) {
             type="email"
             className="login__input"
             name="email"
-            value={values.email}
+            value={values.email || ''}
             placeholder="Email"
             onChange={handleChange}
             minLength="2"
@@ -74,7 +74,7 @@ function Login({ handleLogin, isLoading, error }) {
             className="login__input"
             onChange={handleChange}
             placeholder="Пароль"
-            value={values.password}
+            value={values.password || ''}
             minLength="4"
             maxLength="12"
             autoComplete="off"

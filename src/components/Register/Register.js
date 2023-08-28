@@ -57,7 +57,7 @@ function Register({ handleRegister, isLoading, error}) {
             value={values.name}
             minLength="2"
             maxLength="30"
-            pattern="^[A-Za-zА-Яа-яЁё \\-]+$"
+            // pattern="^[A-Za-zА-Яа-яЁё \\-]+$"
             autoComplete="off"
             required
           />
