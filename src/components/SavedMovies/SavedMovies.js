@@ -11,68 +11,59 @@ function SavedMovies({
   movies,
   savedMovies,
   onDislikeMovie,
-  // handleSearchSavedSubmit,
-  // handleSearchSavedChange,
+  handleSearchSavedSubmit,
+  handleSearchSavedChange,
   preloader,
   isSearched,
   // searchedMovies,
   searchText,
-  // setCheckbox,
-  // checkbox,
+  setCheckbox,
+  checkbox,
   setIsResult,
 
 }) {
-  const findedLocalMovies = localStorage.getItem("findedMovies" || []);
-  const findedLocalShortMovies = localStorage.getItem(
-    "findedShortMovies" || []
-  );
-  let findedMoviesSaved = JSON.parse(findedLocalMovies);
-  let findedShortMoviesSaved = JSON.parse(findedLocalShortMovies);
-  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
+  // const findedLocalMovies = localStorage.getItem("findedMovies" || []);
+  // const findedLocalShortMovies = localStorage.getItem(
+  //   "findedShortMovies" || []
+  // );
+  // let findedMoviesSaved = JSON.parse(findedLocalMovies);
+  // let findedShortMoviesSaved = JSON.parse(findedLocalShortMovies);
+  // const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
 
-  // const [searchedMovies, setSearchedMovies] = useState([]); // Фильмы через поиск
-  const [checkbox, setCheckbox] = useState(false);
-  const [shortMovies, setShortMovies] = useState(false);
+  // // const [searchedMovies, setSearchedMovies] = useState([]); // Фильмы через поиск
+  // const [checkbox, setCheckbox] = useState(false);
+  // const [shortMovies, setShortMovies] = useState(false);
+
+  // function handleSearchSavedSubmit(movie) {
+  //   setSearchedSavedMovies(movie);
+  // }
+
+  // function handleSearchSavedChange() {
+  //   setShortMovies(!shortMovies);
+  // }
 
   // useEffect(() => {
-  //   // console.log(findedShortMoviesSaved);
-  //   if (checkbox) {
-  //     setSearchedSavedMovies(findedShortMoviesSaved);
+  //   const filteredMovies = savedMovies.filter((savedMovie) => {
+  //     return savedMovie.nameRU.toLowerCase().includes(searchText.toLowerCase());
+  //   });
+  //   if (filteredMovies.length < 1) {
+  //     // setIsResult(false);
+  //     setSearchedSavedMovies([]);
+  //     // setTimeout(() => setPreloader(false), 500);
   //   } else {
-  //     setSearchedSavedMovies(findedMoviesSaved);
+  //     findedMoviesSaved = filteredMovies;
+  //     findedShortMoviesSaved = filteredMovies.filter(
+  //       (savedMovie) => savedMovie.duration <= 40
+  //     );
+  //     if (checkbox) {
+  //       setSearchedSavedMovies(findedShortMoviesSaved);
+  //     } else {
+  //       setSearchedSavedMovies(findedMoviesSaved);
+  //     }
+  //     // setIsResult(true);
+  //     // setTimeout(() => setPreloader(false), 500);
   //   }
-  // }, [checkbox]);
-
-  function handleSearchSavedSubmit(movie) {
-    setSearchedSavedMovies(movie);
-  }
-
-  function handleSearchSavedChange() {
-    setShortMovies(!shortMovies);
-  }
-
-  useEffect(() => {
-    const filteredMovies = savedMovies.filter((savedMovie) => {
-      return savedMovie.nameRU.toLowerCase().includes(searchText.toLowerCase());
-    });
-    if (filteredMovies.length < 1) {
-      // setIsResult(false);
-      setSearchedSavedMovies([]);
-      // setTimeout(() => setPreloader(false), 500);
-    } else {
-      findedMoviesSaved = filteredMovies;
-      findedShortMoviesSaved = filteredMovies.filter(
-        (savedMovie) => savedMovie.duration <= 40
-      );
-      if (checkbox) {
-        setSearchedSavedMovies(findedShortMoviesSaved);
-      } else {
-        setSearchedSavedMovies(findedMoviesSaved);
-      }
-      // setIsResult(true);
-      // setTimeout(() => setPreloader(false), 500);
-    }
-  }, [savedMovies]);
+  // }, [savedMovies]);
 
   return (
     <>
@@ -85,13 +76,13 @@ function SavedMovies({
           setCheckbox={setCheckbox}
           checkbox={checkbox}
         />
-        {movies.length ? (
+        {movies?.length ? (
           <MoviesCardList
             movies={movies}
             // savedMovies={filteredMovies}
             savedMovies={savedMovies}
             onDislikeMovie={onDislikeMovie}
-            searchedMovies={searchedSavedMovies}
+            // searchedMovies={searchedSavedMovies}
           />
         ) : preloader ? (
           <Preloader />

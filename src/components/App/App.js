@@ -24,7 +24,7 @@ function App() {
   const [movies, setMovies] = useState([]); //Фильмы загруженные с сервера
   const [savedMovies, setSavedMovies] = useState([]); // Сохраненные фильмы
   const [searchedMovies, setSearchedMovies] = useState([]); // Фильмы через поиск
-  // const [searchedSavedMovies, setSearchedSavedMovies] = useState([]); // Сохраненные фильмы через поиск
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]); // Сохраненные фильмы через поиск
   const [moreButton, setMoreButton] = useState(false); // Стейт кнопки "Еще"
   const [searchText, setSearchText] = useState(""); //ввод текста в фильмах
   const [searchSavedText, setSearchSavedText] = useState(""); //ввод текста в сохр фильмах
@@ -40,12 +40,16 @@ function App() {
   const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
   const [checkbox, setCheckbox] = useState(false);
+
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
-  const findedLocalShortMovies = localStorage.getItem(
-    "findedShortMovies" || []
-  );
+  const findedLocalShortMovies = localStorage.getItem("findedShortMovies" || []);
   let findedMovies = JSON.parse(findedLocalMovies);
   let findedShortMovies = JSON.parse(findedLocalShortMovies);
+
+  const findedLocalMoviesSaved = localStorage.getItem("findedMoviesSaved" || []);
+  const findedLocalShortMoviesSaved = localStorage.getItem("findedShortMoviesSaved" || []);
+  let findedMoviesSaved = JSON.parse(findedLocalMoviesSaved);
+  let findedShortMoviesSaved = JSON.parse(findedLocalShortMoviesSaved);
 
   // console.log(findedShortMovies);
 
@@ -90,6 +94,15 @@ function App() {
       setSearchedMovies(findedShortMovies);
     } else {
       setSearchedMovies(findedMovies);
+    }
+  }, [checkbox]);
+
+  useEffect(() => {
+    // console.log(findedShortMovies);
+    if (checkbox) {
+      setSearchedSavedMovies(findedShortMoviesSaved);
+    } else {
+      setSearchedSavedMovies(findedMoviesSaved);
     }
   }, [checkbox]);
 
@@ -289,6 +302,43 @@ function App() {
     searchMovies();
     setIsSearched(true);
   }
+
+
+  // обработчик поиска в Сохраненных фильмах
+  function searchMoviesSaved() {
+    const filteredMoviesSaved = savedMovies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
+    });
+    setPreloader(true);
+    if (filteredMoviesSaved.length < 1) {
+      setIsResult(false);
+      setSearchedSavedMovies([]);
+      setTimeout(() => setPreloader(false), 500);
+    } else {
+      // setSearchedMovies(filteredMovies);
+      findedMoviesSaved = filteredMoviesSaved;
+      findedShortMoviesSaved = filteredMoviesSaved.filter(
+        (movie) => movie.duration <= 40
+      );
+      localStorage.setItem("findedMoviesSaved", JSON.stringify(findedMoviesSaved));
+      localStorage.setItem("findedShortMoviesSaved",JSON.stringify(findedShortMoviesSaved));
+      if (checkbox) {
+        setSearchedSavedMovies(findedShortMoviesSaved);
+      } else {
+        setSearchedSavedMovies(findedMoviesSaved);
+      }
+      setIsResult(true);
+      setTimeout(() => setPreloader(false), 500);
+    }
+  }
+  function handleSearchSavedChange(e) {
+    setSearchSavedText(e.target.value);
+  }
+  function handleSearchSavedSubmit() {
+    // e.preventDefault();
+    searchMoviesSaved();
+    setIsSearchedSaved(true);
+  }
  
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -333,13 +383,13 @@ function App() {
                     movies={savedMovies}
                     // movies={searchedSavedMovies}
                     // searchedMovies={searchedSavedMovies}
-                    // handleSearchSubmit={handleSearchSavedSubmit}
-                    // handleSearchChange={handleSearchSavedChange}
+                    handleSearchSubmit={handleSearchSavedSubmit}
+                    handleSearchChange={handleSearchSavedChange}
                     isSearched={isSearchedSaved}
                     isResult={isResultSaved}
                     searchText={searchSavedText}
-                    // setCheckbox={setCheckbox}
-                    // checkbox={checkbox}
+                    setCheckbox={setCheckbox}
+                    checkbox={checkbox}
                   />
                 }
               />
