@@ -80,8 +80,22 @@
 .login__error_active {
   opacity: 1;
 }
+.login__error-form{
+  text-align: center;
+  color: #ee3465;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 18px;
+  height: 100%;
+  margin-top: 160px;
+  display: block;
+  flex-wrap: wrap;
+  max-width: 390px;
+}
 .login__button {
-  margin-top: 180px;
+  margin-top: 15px;
   border-radius: 3px;
   border: none;
   background: #ff6838;
@@ -97,6 +111,15 @@
 .login__button:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+.login__button:disabled{
+  background: #b8b2b2;
+  cursor: auto;
+}
+.login__button:disabled:hover{
+  background: #b8b2b2;
+  cursor: auto;
+  opacity: 1;
 }
 .login__signup {
   color: #a0a0a0;
@@ -146,8 +169,11 @@
     text-align: center;
     margin-bottom: 82px;
   }
+  .login__error-form{
+    margin-top: 210px;
+  }
   .login__button {
-    margin-top: 268px;
+    margin-top: 40px;
     font-size: 12px;
     padding: 15px 68px;
   }

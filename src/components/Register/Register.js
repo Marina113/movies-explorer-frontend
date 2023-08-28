@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 import "./Register.css";
 import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Register({ handleRegister, isLoading }) {
+function Register({ handleRegister, isLoading, error}) {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -57,7 +57,7 @@ function Register({ handleRegister, isLoading }) {
             value={values.name}
             minLength="2"
             maxLength="30"
-            // pattern="/^[A-Za-zА-Яа-я -]{2,}$/"
+            pattern="^[A-Za-zА-Яа-яЁё \\-]+$"
             autoComplete="off"
             required
           />
@@ -117,6 +117,8 @@ function Register({ handleRegister, isLoading }) {
           >
             {errors.password || ""}
           </span>
+
+          <p className="register__error-form">{error}</p>
           <button
             type="submit"
             className="register__button"

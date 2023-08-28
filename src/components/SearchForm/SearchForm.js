@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SearchForm.css";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 function SearchForm({
   handleSearchSubmit,
@@ -15,7 +14,7 @@ function SearchForm({
   const [searchError, setSearchError] = useState("");
 
   function handleSubmit(e) {
-    console.log(searchText);
+    // console.log(searchText);
     e.preventDefault();
     if (searchText === undefined || searchText === "") {
       setSearchError("Введите символ");
@@ -36,7 +35,6 @@ function SearchForm({
           type="text"
           value={search}
           onChange={handleSearchChange}
-          // onChange={(e) => setSearch(e.target.value)}
           placeholder="Фильм"
           // minLength="2"
           maxLength="40"

@@ -4,12 +4,13 @@ import logo from "../../images/logo.svg";
 import "./Login.css";
 import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Login({ handleLogin, isLoading }) {
+function Login({ handleLogin, isLoading, error }) {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,11 +18,9 @@ function Login({ handleLogin, isLoading }) {
     resetForm();
   };
 
-  const [isDisabled, setIsDisabled] = useState(true);
-
   //валидация формы
   useEffect(() => {
-    if (!values.name || !values.email || !values.password) {
+    if (!values.email || !values.password) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -86,6 +85,7 @@ function Login({ handleLogin, isLoading }) {
           >
             {errors.password || ""}
           </span>
+          <p className="login__error-form">{error}</p>
           <button type="submit" className="login__button" disabled={!isValid}>
             Войти
           </button>

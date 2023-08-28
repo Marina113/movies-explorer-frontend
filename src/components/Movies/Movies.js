@@ -59,14 +59,13 @@ function Movies({
           setCheckbox={setCheckbox}
           checkbox={checkbox}
         />
-        {movies.length ? (
+        {movies?.length ? (
           <MoviesCardList
             movies={movies}
             savedMovies={savedMovies}
             onLikeMovie={onLikeMovie}
             onDislikeMovie={onDislikeMovie}
             moreButton={moreButton}
-            // showFavourites={onShowFavourites}
           />
         ) : preloader ? (
           <Preloader />

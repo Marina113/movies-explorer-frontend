@@ -11,6 +11,8 @@ import {
 } from "../../utils/constants";
 // import { useResize } from "../../utils/useResize";
 import { useMediaQuery } from "../../utils/useMediaQuery";
+import { useLocation } from "react-router-dom";
+
 
 function MoviesCardList({
   movies,
@@ -21,9 +23,9 @@ function MoviesCardList({
 }) {
   // const [isLoading, setIsLoading] = React.useState(false); //прелоадер
   // const width = useResize();
+  const location = useLocation();
 
   const [cards, setCards] = React.useState(null);
-  const [showAllMovies, setShowAllMovies] = React.useState([]);
 
   const isDesktop = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 480px)");
@@ -45,10 +47,16 @@ function MoviesCardList({
   );
 
   // const roundedVisibleCardCount = isDesktop
-  //   ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
+  //   Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
   //   : isTablet
   //   ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
   //   : Math.floor((visibleCardCount / cardColumnCount) * cardColumnCount)
+
+  const roundedVisibleCardCount = isDesktop 
+  ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount 
+  : isTablet 
+  ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount 
+  : Math.floor((visibleCardCount / cardColumnCount) * cardColumnCount);
 
   React.useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
@@ -64,11 +72,9 @@ function MoviesCardList({
     if (isDesktop) {
       return setVisibleCardCount(visibleCardCount + LG_ROW_CARD_COUNT);
     }
-
     if (isTablet) {
       return setVisibleCardCount(visibleCardCount + MD_ROW_CARD_COUNT);
     }
-
     setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
   };
 
@@ -77,7 +83,7 @@ function MoviesCardList({
   return (
     <section className="card-list">
       <div className="card-list__container">
-        {movies.slice(0, visibleCardCount).map((movie) => {
+        {movies.slice(0, roundedVisibleCardCount).map((movie) => {
           return (
             <MoviesCard
               key={movie.movieId}
@@ -90,7 +96,21 @@ function MoviesCardList({
         })
         }
       </div>
-      <button
+      {movies.length > 15 && 
+      location.pathname === "/movies" && 
+      movies.length > roundedVisibleCardCount ? ( 
+        <button 
+          className="card-list__more" 
+          onClick={handleClick} 
+        > 
+          Ещё 
+        </button> 
+      ) : ( 
+        "" 
+      )}
+
+
+      {/* <button
         type="button"
         className={
           moreButton
@@ -100,7 +120,7 @@ function MoviesCardList({
         onClick={handleClick}
       >
         Ещё
-      </button>
+      </button> */}
     </section>
   );
 }

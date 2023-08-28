@@ -135,7 +135,23 @@
   opacity: 0.7;
   cursor: pointer;
 }
+.profile__error-form{
+  text-align: center;
+  color: #ee3465;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 18px;
+  height: 100%;
+  /* margin-top: 189px; */
+  display: block;
+  flex-wrap: wrap;
+  max-width: 390px;
+  margin: 0;
+}
 .profile__save {
+  padding: 0;
   border-radius: 3px;
   background: #3456f3;
   color: #fff;
@@ -195,4 +211,7 @@
     margin-bottom: 40px;
     margin-top: 345px;
   }
+  /* .profile__error-form{
+
+  } */
 }

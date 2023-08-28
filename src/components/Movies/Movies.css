@@ -1,6 +1,6 @@
 .movies {
   display: flex;
-  /* max-width: 1280px; */
+ /* min-height: 100Vh; */
   width: 100%;
   margin: 0 auto;
   flex-direction: column;
@@ -9,7 +9,7 @@
   background: #fff;
 }
 .movies__nothing{
-  margin: 0 auto;
+  margin: 100px auto;
   color: #df0a0a;
   font-size: 16px;
   font-style: normal;

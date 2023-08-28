@@ -6,26 +6,12 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Profile({ onSignOut, onUpdateProfile }) {
+function Profile({ onSignOut, onUpdateProfile, error }) {
   // const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isDisabled, setIsDisabled] = useState(false);
-
-  //блокировка формы,если значения полей одинаковое
-  // useEffect(() => {
-  //   if (
-  //     currentUser.name === values.name &&
-  //     currentUser.email === values.email
-  //   ) {
-  //     setIsDisabled(true);
-  //   } else {
-  //     setIsDisabled(false);
-  //   }
-  // }, [currentUser, values]);
 
   useEffect(() => {
     if(currentUser){
@@ -132,6 +118,7 @@ function Profile({ onSignOut, onUpdateProfile }) {
                 </>
               ) : (
                 <>
+                <p className="profile__error-form">{error}</p>
                   <button
                     type="submit"
                     className="profile__save"

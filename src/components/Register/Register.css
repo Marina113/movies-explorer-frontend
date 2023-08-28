@@ -82,16 +82,22 @@
 .register__error_active{
   opacity: 1;
 }
-/* .find {
-  position: absolute;
-  display: none;
-  background: #FFF;
-}
-.register__error:valid + .find {
+.register__error-form{
+  text-align: center;
+  color: #ee3465;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 18px;
+  height: 100%;
+  margin-top: 70px;
   display: block;
-} */
+  flex-wrap: wrap;
+  max-width: 390px;
+}
 .register__button {
-  margin-top: 69px;
+  margin-top: 15px;
   border-radius: 3px;
   border: none;
   background: #ff6838;
@@ -154,8 +160,11 @@
     text-align: center;
     margin-bottom: 80px;
   }
+  .register__error-form{
+    margin-top: 170px;
+  }
   .register__button {
-    margin-top: 157px;
+    margin-top: 55px;
     font-size: 12px;
     padding: 15px 68px;
   }

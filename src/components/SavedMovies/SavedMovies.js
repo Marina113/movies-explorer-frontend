@@ -8,13 +8,16 @@ import Footer from "../Footer/Footer";
 
 function SavedMovies({
   movies,
-  // savedMovies,
+  savedMovies,
   onDislikeMovie,
   handleSearchSubmit,
   handleSearchChange,
   preloader,
   isSearched,
-  searchedMovies
+  searchedMovies,
+  searchText,
+  setCheckbox,
+  checkbox,
 }) {
  
   return (
@@ -24,14 +27,16 @@ function SavedMovies({
         <SearchForm
           handleSearchSubmit={handleSearchSubmit}
           handleSearchChange={handleSearchChange}
+          searchText={searchText}
+          setCheckbox={setCheckbox}
+          checkbox={checkbox}
         />
         {movies.length ? (
           <MoviesCardList
             movies={movies}
-            // savedMovies={savedMovies}
+            savedMovies={savedMovies}
             onDislikeMovie={onDislikeMovie}
             searchedMovies={searchedMovies}
-            // showFavourites={onShowFavourites}
           />
         ) : preloader ? (
           <Preloader />
