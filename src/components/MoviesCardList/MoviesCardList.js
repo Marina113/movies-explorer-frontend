@@ -108,19 +108,6 @@ function MoviesCardList({
       ) : ( 
         "" 
       )}
-
-
-      {/* <button
-        type="button"
-        className={
-          moreButton
-            ? `card-list__more`
-            : `card-list__more card-list__more_hidden`
-        }
-        onClick={handleClick}
-      >
-        Ещё
-      </button> */}
     </section>
   );
 }

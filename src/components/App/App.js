@@ -24,7 +24,7 @@ function App() {
   const [movies, setMovies] = useState([]); //Фильмы загруженные с сервера
   const [savedMovies, setSavedMovies] = useState([]); // Сохраненные фильмы
   const [searchedMovies, setSearchedMovies] = useState([]); // Фильмы через поиск
-  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]); // Сохраненные фильмы через поиск
+  // const [searchedSavedMovies, setSearchedSavedMovies] = useState([]); // Сохраненные фильмы через поиск
   const [moreButton, setMoreButton] = useState(false); // Стейт кнопки "Еще"
   const [searchText, setSearchText] = useState(""); //ввод текста в фильмах
   const [searchSavedText, setSearchSavedText] = useState(""); //ввод текста в сохр фильмах
@@ -46,15 +46,6 @@ function App() {
   );
   let findedMovies = JSON.parse(findedLocalMovies);
   let findedShortMovies = JSON.parse(findedLocalShortMovies);
-
-  const findedLocalMoviesSaved = localStorage.getItem(
-    "findedMoviesSaved" || []
-  );
-  const findedLocalShortMoviesSaved = localStorage.getItem(
-    "findedShortMoviesSaved" || []
-  );
-  let findedMoviesSaved = JSON.parse(findedLocalMoviesSaved);
-  let findedShortMoviesSaved = JSON.parse(findedLocalShortMoviesSaved);
 
   // console.log(findedShortMovies);
 
@@ -99,14 +90,6 @@ function App() {
       setSearchedMovies(findedShortMovies);
     } else {
       setSearchedMovies(findedMovies);
-    }
-  }, [checkbox]);
-
-  useEffect(() => {
-    if (checkbox) {
-      setSearchedSavedMovies(findedShortMoviesSaved);
-    } else {
-      setSearchedSavedMovies(findedMoviesSaved);
     }
   }, [checkbox]);
 
@@ -241,7 +224,7 @@ function App() {
     mainApi
       .saveMovie(movie)
       .then((newMovie) => {
-        console.log(newMovie);
+        // console.log(newMovie);
         setSavedMovies([newMovie, ...savedMovies]);
         // setMovies([newMovie, ...movies]);
       })
@@ -306,60 +289,7 @@ function App() {
     searchMovies();
     setIsSearched(true);
   }
-
-  // обработчик поиска в Сохраненных Фильмах
-  function searchSavedMovies() {
-    const filteredSavedMovies = savedMovies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
-    });
-    setPreloader(true);
-    if (filteredSavedMovies.length < 1) {
-      setIsResult(false);
-      setSearchedSavedMovies([]);
-      setTimeout(() => setPreloader(false), 500);
-    } else {
-      findedMoviesSaved = filteredSavedMovies;
-      findedShortMoviesSaved = filteredSavedMovies.filter(
-        (movie) => movie.duration <= 40
-      );
-      localStorage.setItem("findedMoviesSaved", JSON.stringify(findedMoviesSaved));
-      localStorage.setItem(
-        "findedShortMoviesSaved",
-        JSON.stringify(findedShortMoviesSaved)
-      );
-      if (checkbox) {
-        setSearchedSavedMovies(findedShortMoviesSaved);
-      } else {
-        setSearchedSavedMovies(findedMoviesSaved);
-      }
-      setIsResult(true);
-      setTimeout(() => setPreloader(false), 500);
-    }
-
-    // const filteredSavedMovies = savedMovies.filter((movie) => {
-    //   return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
-    // });
-    // setPreloader(true);
-    // if (filteredSavedMovies.length < 1) {
-    //   setIsResultSaved(false);
-    //   setSearchedSavedMovies([]);
-    //   setTimeout(() => setPreloader(false), 500);
-    // } else {
-    //   setSearchedSavedMovies(filteredSavedMovies);
-    //   setIsResultSaved(true);
-    //   setTimeout(() => setPreloader(false), 500);
-    // }
-  }
-  function handleSearchSavedChange(e) {
-    setSearchSavedText(e.target.value);
-  }
-  function handleSearchSavedSubmit(e) {
-    // e.preventDefault();
-    searchSavedMovies();
-    setIsSearchedSaved(true);
-  }
-  // console.log(checkbox);
-
+ 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -401,14 +331,15 @@ function App() {
                     onDislikeMovie={handleDeleteMovie}
                     savedMovies={savedMovies}
                     movies={savedMovies}
-                    searchedMovies={searchedSavedMovies}
-                    handleSearchSubmit={handleSearchSavedSubmit}
-                    handleSearchChange={handleSearchSavedChange}
+                    // movies={searchedSavedMovies}
+                    // searchedMovies={searchedSavedMovies}
+                    // handleSearchSubmit={handleSearchSavedSubmit}
+                    // handleSearchChange={handleSearchSavedChange}
                     isSearched={isSearchedSaved}
                     isResult={isResultSaved}
                     searchText={searchSavedText}
-                    setCheckbox={setCheckbox}
-                    checkbox={checkbox}
+                    // setCheckbox={setCheckbox}
+                    // checkbox={checkbox}
                   />
                 }
               />

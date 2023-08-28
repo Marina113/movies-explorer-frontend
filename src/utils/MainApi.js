@@ -71,7 +71,7 @@ class MainApi {
   //********Добавление фильмов
   saveMovie(movie) {
     const token = localStorage.getItem("token");
-    console.log(movie);
+    // console.log(movie);
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
