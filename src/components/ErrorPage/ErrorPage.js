@@ -8,7 +8,7 @@ function ErrorPage() {
   function goBack() {
     navigate(-2, { replace: true });
   }
-
+console.log(goBack)
   return (
     <main className="error-page">
       <div className="error-page__container">

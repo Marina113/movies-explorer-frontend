@@ -35,26 +35,21 @@ function App() {
   const [isResultSaved, setIsResultSaved] = React.useState(
     JSON.parse(localStorage.getItem("ResultSaved"))
   );
-  // const [foundMovies, setFoundMovies] = React.useState(JSON.parse(localStorage.getItem("storageMoviesCards"))); // поиск в Фильмах
-  // const [foundSavedMovies, setFoundSavedMovies] = React.useState([]); // поиск в Сохраненных фильмах
   const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
   const [checkbox, setCheckbox] = useState(false);
+  // const [checkbox, setCheckbox] = useState(JSON.parse(localStorage.getItem("checkbox")));
   const [checkboxSaved, setCheckboxSaved] = useState(false);
+
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
   const findedLocalShortMovies = localStorage.getItem("findedShortMovies" || []);
   let findedMovies = JSON.parse(findedLocalMovies);
   let findedShortMovies = JSON.parse(findedLocalShortMovies);
 
-  // const searchTextLocal = localStorage.getItem("searchedText");
-  // let searchedText = JSON.parse(searchTextLocal);
-
   const findedLocalMoviesSaved = localStorage.getItem("findedMoviesSaved" || []);
   const findedLocalShortMoviesSaved = localStorage.getItem("findedShortMoviesSaved" || []);
   let findedMoviesSaved = JSON.parse(findedLocalMoviesSaved);
   let findedShortMoviesSaved = JSON.parse(findedLocalShortMoviesSaved);
-
-  const [query, setQuery] = useState(false);
 
   // console.log(findedShortMovies);
 
@@ -67,7 +62,6 @@ function App() {
           // localStorage.setItem('savedMovies', data);
           setCurrentUser(data[0]);
           setSavedMovies(data[1]);
-         
         })
         .catch((err) => {
           console.log(err);
@@ -77,22 +71,6 @@ function App() {
 
   //получение данных о фильмах
   useEffect(() => {
-    if (isLoggedIn) {
-      const moviesBeatFilm = [];
-      moviesApi
-        .getInitialMovies()
-        .then((movies) => {
-          movies.forEach((card) => {
-            moviesBeatFilm.push(changeArray(card));
-          });
-          setMovies(moviesBeatFilm);
-          localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
-        })
-        // setSearchText(searchText)
-        .catch((err) => {
-          console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
-        });
-    }
      const savedSearch=localStorage.getItem("searchText");
       if(savedSearch){
         setSearchText(savedSearch);
@@ -101,7 +79,6 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    // console.log(findedShortMovies);
     if (checkbox) {
       setSearchedMovies(findedShortMovies);
     } else {
@@ -110,7 +87,6 @@ function App() {
   }, [checkbox]);
 
   useEffect(() => {
-    // console.log(findedShortMovies);
     if (checkboxSaved) {
       setSearchedSavedMovies(findedShortMoviesSaved);
     } else {
@@ -268,7 +244,7 @@ function App() {
 
   //обработчик удаления фильма из сохраненных
   function handleDeleteMovie(movie) {
-    setIsLoading(true);
+    // setIsLoading(true);
     mainApi
       .deleteMovie(movie.movieId)
       .then(() => {
@@ -278,9 +254,9 @@ function App() {
         setSavedMovies(newMoviesList);
       })
       .catch((err) => console.log(err))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      // .finally(() => {
+      //   setIsLoading(false);
+      // });
   }
 
   // обработчик поиска в Фильмах
@@ -288,11 +264,11 @@ function App() {
     const filteredMovies = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchText.toLowerCase());
     });
-    setPreloader(true);
+    // setPreloader(true);
     if (filteredMovies.length < 1) {
       setIsResult(false);
       setSearchedMovies([]);
-      setTimeout(() => setPreloader(false), 500);
+      // setTimeout(() => setPreloader(false), 500);
     } else {
       // setSearchedMovies(filteredMovies);
       findedMovies = filteredMovies;
@@ -301,18 +277,13 @@ function App() {
       );
       localStorage.setItem("findedMovies", JSON.stringify(findedMovies));
       localStorage.setItem("findedShortMovies",JSON.stringify(findedShortMovies));
-      // localStorage.setItem("searchText", searchText);
-      // localStorage.setItem("searchText",JSON.stringify(searchText));
-      // setSearchText(localStorage.getItem("searchText"));
-      // console.log(searchText)
-
       if (checkbox) {
         setSearchedMovies(findedShortMovies);
       } else {
         setSearchedMovies(findedMovies);
       }
       setIsResult(true);
-      setTimeout(() => setPreloader(false), 500);
+      // setTimeout(() => setPreloader(false), 500);
     }
   }
 
@@ -324,9 +295,12 @@ function App() {
       // }
 // })
 
+function handleCheckbox(){
+// setCheckbox(prev => !prev);
+}
+
   function handleSearchChange(e) {
     setSearchText(e.target.value);
-  // //  localStorage.setItem("searchText",JSON.stringify(e.target.value))
   }
   function handleSearchSubmit(searchText) {
     // e.preventDefault();
@@ -334,6 +308,22 @@ function App() {
     setIsSearched(true);
     setSearchText(searchText);
     localStorage.setItem("searchText", searchText);
+    if (isLoggedIn) {
+      const moviesBeatFilm = [];
+      moviesApi
+        .getInitialMovies()
+        .then((movies) => {
+          movies.forEach((card) => {
+            moviesBeatFilm.push(changeArray(card));
+          });
+          setMovies(moviesBeatFilm);
+          localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
+        })
+        // setSearchText(searchText)
+        .catch((err) => {
+          console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+        });
+    }
   }
 
 
@@ -342,11 +332,11 @@ function App() {
     const filteredMoviesSaved = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
     });
-    setPreloader(true);
+    // setPreloader(true);
     if (filteredMoviesSaved.length < 1) {
       setIsResult(false);
       setSearchedSavedMovies([]);
-      setTimeout(() => setPreloader(false), 500);
+      // setTimeout(() => setPreloader(false), 500);
     } else {
       // setSearchedMovies(filteredMovies);
       findedMoviesSaved = filteredMoviesSaved;
@@ -361,7 +351,7 @@ function App() {
         setSearchedSavedMovies(findedMoviesSaved);
       }
       setIsResult(true);
-      setTimeout(() => setPreloader(false), 500);
+      // setTimeout(() => setPreloader(false), 500);
     }
   }
   function handleSearchSavedChange(e) {
@@ -396,6 +386,7 @@ function App() {
                     movies={searchedMovies}
                     handleSearchSubmit={handleSearchSubmit}
                     handleSearchChange={handleSearchChange}
+                    handleCheckbox={handleCheckbox}
                     preloader={preloader}
                     isSearched={isSearched}
                     isResult={isResult}
@@ -419,6 +410,7 @@ function App() {
                     // searchedMovies={searchedSavedMovies}
                     handleSearchSubmit={handleSearchSavedSubmit}
                     handleSearchChange={handleSearchSavedChange}
+                    // handleCheckbox={handleCheckboxSaved}
                     isSearched={isSearchedSaved}
                     isResult={isResultSaved}
                     searchText={searchSavedText}

@@ -6,8 +6,8 @@ import { useFormWithValidation } from "../../utils/FormAndValid";
 function SearchForm({
   handleSearchSubmit,
   handleSearchChange,
-  search,
   searchText,
+  handleCheckbox,
   setCheckbox,
   checkbox
 }) {
@@ -73,6 +73,7 @@ function SearchForm({
             type="checkbox"
             checked={checkbox}
             onChange={()=>{setCheckbox(!checkbox)}}
+            // onChange={handleCheckbox}
           ></input>
           <span className="switch__slider"></span>
         </label>

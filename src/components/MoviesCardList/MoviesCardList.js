@@ -28,7 +28,7 @@ function MoviesCardList({
   const [cards, setCards] = React.useState(null);
 
   const isDesktop = useMediaQuery("(min-width: 1280px)");
-  const isTablet = useMediaQuery("(min-width: 480px)");
+  const isTablet = useMediaQuery("(min-width: 768px)");
 
   const cardColumnCount = isDesktop
     ? LG_ROW_CARD_COUNT

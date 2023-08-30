@@ -49,21 +49,6 @@ function Movies({
         ) : (
           ""
         )}
-        {/* {movies?.length ? (
-          <MoviesCardList
-            movies={movies}
-            savedMovies={savedMovies}
-            onLikeMovie={onLikeMovie}
-            onDislikeMovie={onDislikeMovie}
-            moreButton={moreButton}
-          />
-        ) : preloader ? (
-          <Preloader />
-        ) : isSearched ? (
-          <p className="movies__nothing">Ничего не найдено</p>
-        ) : (
-          ""
-        )} */}
       </main>
       <Footer />
     </>
