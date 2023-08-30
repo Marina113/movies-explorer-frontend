@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
+import { useLocation } from "react-router-dom";
+import { useFormWithValidation } from "../../utils/FormAndValid";
 
 function SearchForm({
   handleSearchSubmit,
@@ -9,21 +11,37 @@ function SearchForm({
   setCheckbox,
   checkbox
 }) {
-  // const [checkbox, setCheckbox] = useState(false);
-  // const onCheckbox = () => setCheckbox(!checkbox);
   const [searchError, setSearchError] = useState("");
+  const { values, setValues, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
+  const location = useLocation;
 
+  useEffect(()=>{
+    resetForm({search:searchText});
+  },[resetForm, searchText])
+  
   function handleSubmit(e) {
     // console.log(searchText);
     e.preventDefault();
-    if (searchText === undefined || searchText === "") {
-      setSearchError("Введите символ");
-      return;
-    } else {
-      setSearchError("");
-      handleSearchSubmit();
-    }
+    // if (searchText === undefined || searchText === "") {
+    //   setSearchError("Введите символ");
+    //   return;
+    // } else {
+      // setSearchError("");
+      
+      handleSearchSubmit(values.search);
+    // }
   }
+
+  console.log(searchText);
+
+  // useEffect(() => {
+  //   if (location.pathname === "/movies") {
+  //     resetForm({
+  //       searchText: localStorage.getItem("searchText"),
+  //     });
+  //   }
+  // }, [resetForm]);
+  
 
   return (
     <section className="search">
@@ -33,7 +51,7 @@ function SearchForm({
           name="search-input"
           className="search__input"
           type="text"
-          value={search}
+          value={values.search}
           onChange={handleSearchChange}
           placeholder="Фильм"
           // minLength="2"

@@ -80,6 +80,7 @@ function Register({ handleRegister, isLoading, error}) {
             onChange={handleChange}
             placeholder="Email"
             value={values.email}
+            pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,}$"
             minLength="2"
             maxLength="40"
             autoComplete="off"
@@ -117,19 +118,12 @@ function Register({ handleRegister, isLoading, error}) {
           >
             {errors.password || ""}
           </span>
-
           <p className="register__error-form">{error}</p>
           <button
             type="submit"
             className="register__button"
             disabled={!isValid}
           >
-            {/* <button
-            type="submit"
-            className="register__button"
-            disabled={isLoading}
-            disabled={!isValid}
-          > */}
             Зарегистрироваться
           </button>
         </form>

@@ -24,7 +24,7 @@
   line-height: 18px;
   text-decoration: none;
 }
-.navigation__link_active {
+/* .navigation__link_active {
   color: #000;
   text-align: right;
   font-size: 13px;
@@ -32,6 +32,18 @@
   font-weight: 400;
   line-height: 18px;
   text-decoration: none;
+} */
+.navigation__link_active {
+  text-decoration-line: none;
+  color: #000;
+  text-align: center;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 4 00;
+  line-height: normal;
+  padding-bottom: 4px;
+  border-bottom: #000 solid 2px;
 }
 .navigation__link:hover,
 .navigation__profile:hover,

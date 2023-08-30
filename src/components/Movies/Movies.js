@@ -21,32 +21,6 @@ function Movies({
   setCheckbox,
   checkbox,
 }) {
-  //   const [loading, setLoading] = useState(true);
-  //   const [movies, setMovies] = useState([]);
-  //   const [errorMessage, setErrorMessage] = useState(null);
-  // useEffect(() => {
-  //     fetch('https://api.nomoreparties.co/beatfilm-movies')
-  //       .then(response => response.json())
-  //       .then(jsonResponse => {
-  //         setMovies(jsonResponse.Search);
-  //         setLoading(false);
-  //       });
-  //   }, []);
-  // const search = searchValue => {
-  //     setLoading(true);
-  //     setErrorMessage(null)
-  // // fetch(`https://api.nomoreparties.co?s=${searchValue}`)
-  //       .then(response => response.json())
-  //       .then(jsonResponse => {
-  //         if (jsonResponse.Response === "True") {
-  //           setMovies(jsonResponse.Search);
-  //           setLoading(false);
-  //         } else {
-  //           setErrorMessage(jsonResponse.Error);
-  //           setLoading(false);
-  //         }
-  //       });
-  //   };
 
   return (
     <>
@@ -59,7 +33,23 @@ function Movies({
           setCheckbox={setCheckbox}
           checkbox={checkbox}
         />
-        {movies?.length ? (
+        { preloader ? (
+          <Preloader />
+        ) :
+        movies?.length ? (
+          <MoviesCardList
+            movies={movies}
+            savedMovies={savedMovies}
+            onLikeMovie={onLikeMovie}
+            onDislikeMovie={onDislikeMovie}
+            moreButton={moreButton}
+          />
+        ) : isSearched ? (
+          <p className="movies__nothing">Ничего не найдено</p>
+        ) : (
+          ""
+        )}
+        {/* {movies?.length ? (
           <MoviesCardList
             movies={movies}
             savedMovies={savedMovies}
@@ -73,7 +63,7 @@ function Movies({
           <p className="movies__nothing">Ничего не найдено</p>
         ) : (
           ""
-        )}
+        )} */}
       </main>
       <Footer />
     </>

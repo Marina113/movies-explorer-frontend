@@ -10,7 +10,7 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
   // const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
 
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
@@ -19,6 +19,20 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
     }
 
   },[currentUser, resetForm])
+  
+  // React.useEffect(() => {
+  //   if (currentUser.name === values.name && currentUser.email === values.email) {
+  //     setIsValid(false);
+  //   }
+  // }, [setIsValid, values, currentUser]);
+
+  useEffect(() => {
+    if ((values.name !== currentUser.name || values.email !== currentUser.email)) {
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
+    }
+}, [currentUser, values]);
 
   //обработчик отправки формы
   function handleProfileSubmit(e) {
@@ -58,7 +72,7 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
                 value={values.name || ''}
                 onChange={handleChange}
                 minLength="2"
-                maxLength="20"
+                maxLength="30"
                 autoComplete="off"
                 // pattern=""
                 // disabled={!isDisabled}
@@ -101,8 +115,8 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
             >
               {errors.email || ""}
             </span>
+            <p className="profile__error-form">{error}</p>
             <div className="profile__edit">
-
               {!isDisabled ? (
                 <>
                   <button
@@ -118,11 +132,11 @@ function Profile({ onSignOut, onUpdateProfile, error }) {
                 </>
               ) : (
                 <>
-                <p className="profile__error-form">{error}</p>
+                {/* <p className="profile__error-form">{error}</p> */}
                   <button
                     type="submit"
                     className="profile__save"
-                    disabled={!isValid}
+                    disabled={!isValid || (currentUser.name === values.name && currentUser.email === values.email)}
                     onClick={handleProfileSubmit}
                   >
                     Сохранить

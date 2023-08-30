@@ -39,8 +39,7 @@ class MainApi {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => res.json())
-      .then((data) => data);
+    .then(this._checkResponse);
   };
 
   //********Информация о пользователе с сервера */
@@ -95,9 +94,9 @@ class MainApi {
       }),
     })
       .then(this._checkResponse)
-      .then((res) => {
-        return res;
-      });
+      // .then((res) => {
+      //   return res;
+      // });
   }
 
   //********Удаление фильма
