@@ -37,8 +37,8 @@ function App() {
   );
   const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
-  const [checkbox, setCheckbox] = useState(false);
-  // const [checkbox, setCheckbox] = useState(JSON.parse(localStorage.getItem("checkbox")));
+  // const [checkbox, setCheckbox] = useState(false);
+  // const [checkbox, setCheckbox] = React.useState(JSON.parse(localStorage.getItem("findedShortMovies")) || []);
   const [checkboxSaved, setCheckboxSaved] = useState(false);
 
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
@@ -58,8 +58,6 @@ function App() {
     if (isLoggedIn) {
       Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
         .then((data) => {
-          // console.log(data);
-          // localStorage.setItem('savedMovies', data);
           setCurrentUser(data[0]);
           setSavedMovies(data[1]);
         })
@@ -78,21 +76,61 @@ function App() {
       }
   }, [isLoggedIn]);
 
+  const [saveCheckbox, setSaveCheckbox] = useState(false);
+  const [checkboxMoviesSaved, setCheckboxMoviesSaved] = useState(false);
+
   useEffect(() => {
-    if (checkbox) {
+    if (saveCheckbox) {
       setSearchedMovies(findedShortMovies);
     } else {
       setSearchedMovies(findedMovies);
     }
-  }, [checkbox]);
+  }, [saveCheckbox]);
 
   useEffect(() => {
-    if (checkboxSaved) {
-      setSearchedSavedMovies(findedShortMoviesSaved);
-    } else {
-      setSearchedSavedMovies(findedMoviesSaved);
-    }
-  }, [checkboxSaved]);
+  if (checkboxMoviesSaved) {
+    setSearchedSavedMovies(findedShortMoviesSaved);
+  } else {
+    setSearchedSavedMovies(findedMoviesSaved);
+  }
+   }, [checkboxMoviesSaved]);
+  
+
+  // useEffect(()=>{
+  //   const filteredMovies = movies.filter((movie) => {
+  //     return movie.nameRU.toLowerCase().includes(searchText.toLowerCase());
+  //   });
+  //   // setPreloader(true);
+  //   if (filteredMovies.length < 1) {
+  //     setIsResult(false);
+  //     setSearchedMovies([]);}
+  //   if(saveCheckbox){
+  //     findedShortMovies = filteredMovies.filter(
+  //       (movie) => movie.duration <= 40
+  //     )
+  //     setSearchedMovies(findedShortMovies)
+  //   };
+  //   setSearchedMovies(filteredMovies);
+  // },[saveCheckbox, movies])
+
+function handleChangeCheckbox(){
+  const change = !saveCheckbox;
+  setSaveCheckbox(change);
+  localStorage.setItem("saveCheckbox",JSON.stringify(change));
+}
+
+function handleChangeCheckboxSaved(){
+  const change = !checkboxMoviesSaved;
+  setCheckboxMoviesSaved(change);
+  localStorage.setItem("checkboxMoviesSaved",JSON.stringify(change));
+}
+
+useEffect(()=>{
+  const stateFilter = JSON.parse(localStorage.getItem("saveCheckbox"));
+  if(stateFilter !== null){
+    setSaveCheckbox(stateFilter);
+  }
+},[])
 
   useEffect(() =>{
     searchMoviesSaved()
@@ -275,9 +313,10 @@ function App() {
       findedShortMovies = filteredMovies.filter(
         (movie) => movie.duration <= 40
       );
+      // console.log(findedMovies,findedShortMovies)
       localStorage.setItem("findedMovies", JSON.stringify(findedMovies));
       localStorage.setItem("findedShortMovies",JSON.stringify(findedShortMovies));
-      if (checkbox) {
+      if (saveCheckbox) {
         setSearchedMovies(findedShortMovies);
       } else {
         setSearchedMovies(findedMovies);
@@ -295,9 +334,14 @@ function App() {
       // }
 // })
 
-function handleCheckbox(){
+// function handleCheckbox(){
+  
 // setCheckbox(prev => !prev);
-}
+// localStorage.getItem("checkbox")
+// }
+// function handleCheckboxSaved(){
+//   setCheckboxSaved(prev => !prev);
+//   }
 
   function handleSearchChange(e) {
     setSearchText(e.target.value);
@@ -326,7 +370,6 @@ function handleCheckbox(){
     }
   }
 
-
   // обработчик поиска в Сохраненных фильмах
   function searchMoviesSaved() {
     const filteredMoviesSaved = savedMovies.filter((movie) => {
@@ -345,7 +388,7 @@ function handleCheckbox(){
       );
       localStorage.setItem("findedMoviesSaved", JSON.stringify(findedMoviesSaved));
       localStorage.setItem("findedShortMoviesSaved",JSON.stringify(findedShortMoviesSaved));
-      if (checkboxSaved) {
+      if (checkboxMoviesSaved) {
         setSearchedSavedMovies(findedShortMoviesSaved);
       } else {
         setSearchedSavedMovies(findedMoviesSaved);
@@ -378,7 +421,6 @@ function handleCheckbox(){
                     element={Movies}
                     isLoggedIn={isLoggedIn}
                     isLoading={isLoading}
-                    // onShowFavourites={onShowFavourites}
                     moreButton={moreButton}
                     onLikeMovie={handleLikeMovie}
                     onDislikeMovie={handleDeleteMovie}
@@ -386,13 +428,12 @@ function handleCheckbox(){
                     movies={searchedMovies}
                     handleSearchSubmit={handleSearchSubmit}
                     handleSearchChange={handleSearchChange}
-                    handleCheckbox={handleCheckbox}
                     preloader={preloader}
                     isSearched={isSearched}
                     isResult={isResult}
                     searchText={searchText}
-                    setCheckbox={setCheckbox}
-                    checkbox={checkbox}
+                    handleChangeCheckbox={handleChangeCheckbox}
+                    saveCheckbox={saveCheckbox}
                   />
                 }
               />
@@ -405,17 +446,14 @@ function handleCheckbox(){
                     isLoading={isLoading}
                     onDislikeMovie={handleDeleteMovie}
                     savedMovies={savedMovies}
-                    // movies={savedMovies}
                     movies={searchedSavedMovies}
-                    // searchedMovies={searchedSavedMovies}
                     handleSearchSubmit={handleSearchSavedSubmit}
                     handleSearchChange={handleSearchSavedChange}
-                    // handleCheckbox={handleCheckboxSaved}
                     isSearched={isSearchedSaved}
                     isResult={isResultSaved}
                     searchText={searchSavedText}
-                    setCheckbox={setCheckboxSaved}
-                    checkbox={checkboxSaved}
+                    handleChangeCheckbox={handleChangeCheckboxSaved}
+                    saveCheckbox={checkboxMoviesSaved}
                   />
                 }
               />

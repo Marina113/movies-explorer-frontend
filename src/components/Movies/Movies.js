@@ -20,6 +20,10 @@ function Movies({
   searchText,
   setCheckbox,
   checkbox,
+  handleCheckbox,
+
+  saveCheckbox,
+  handleChangeCheckbox,
 }) {
 
   return (
@@ -32,6 +36,10 @@ function Movies({
           searchText={searchText}
           setCheckbox={setCheckbox}
           checkbox={checkbox}
+          handleCheckbox={handleCheckbox}
+
+          handleChangeCheckbox={handleChangeCheckbox}
+          saveCheckbox={saveCheckbox}
         />
         { preloader ? (
           <Preloader />

@@ -9,7 +9,10 @@ function SearchForm({
   searchText,
   handleCheckbox,
   setCheckbox,
-  checkbox
+  checkbox,
+
+  saveCheckbox,
+  handleChangeCheckbox,
 }) {
   const [searchError, setSearchError] = useState("");
   const { values, setValues, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
@@ -22,26 +25,15 @@ function SearchForm({
   function handleSubmit(e) {
     // console.log(searchText);
     e.preventDefault();
-    // if (searchText === undefined || searchText === "") {
-    //   setSearchError("Введите символ");
-    //   return;
-    // } else {
-      // setSearchError("");
+    if (searchText === undefined || searchText === "") {
+      setSearchError("Введите символ");
+      return;
+    } else {
+      setSearchError("");
       
       handleSearchSubmit(values.search);
-    // }
+    }
   }
-
-  console.log(searchText);
-
-  // useEffect(() => {
-  //   if (location.pathname === "/movies") {
-  //     resetForm({
-  //       searchText: localStorage.getItem("searchText"),
-  //     });
-  //   }
-  // }, [resetForm]);
-  
 
   return (
     <section className="search">
@@ -71,9 +63,9 @@ function SearchForm({
           <input
             className="switch__input"
             type="checkbox"
-            checked={checkbox}
-            onChange={()=>{setCheckbox(!checkbox)}}
-            // onChange={handleCheckbox}
+            checked={saveCheckbox}
+            // onChange={()=>{setCheckbox(!checkbox)}}
+            onChange={handleChangeCheckbox}
           ></input>
           <span className="switch__slider"></span>
         </label>

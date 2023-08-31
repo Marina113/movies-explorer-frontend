@@ -20,9 +20,10 @@ function SavedMovies({
   setCheckbox,
   checkbox,
   setIsResult,
-
+  handleCheckbox,
+  saveCheckbox,
+  handleChangeCheckbox,
 }) {
-
   return (
     <>
       <Header />
@@ -33,6 +34,9 @@ function SavedMovies({
           searchText={searchText}
           setCheckbox={setCheckbox}
           checkbox={checkbox}
+          handleCheckbox={handleCheckbox}
+          handleChangeCheckbox={handleChangeCheckbox}
+          saveCheckbox={saveCheckbox}
         />
         {movies?.length ? (
           <MoviesCardList
