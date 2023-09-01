@@ -166,7 +166,7 @@ background: #000;
     transform: translateX(0);
   }
   .navigation__list {
-    gap: 444px;
+    gap: 344px;
     flex-direction: column;
     position: relative;
     z-index: 5;
@@ -219,9 +219,9 @@ background: #000;
   .navigation__burger-middle {
     top: 10px;
   }
-  .navigation__list {
+  /* .navigation__list {
     gap: 344px;
-  }
+  } */
   .navigation__links {
     gap: 24px;
   }
