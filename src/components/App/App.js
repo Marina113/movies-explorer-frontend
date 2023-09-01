@@ -292,7 +292,6 @@ useEffect(()=>{
       setSearchedMovies([]);
       // setTimeout(() => setPreloader(false), 500);
     } else {
-      // setSearchedMovies(filteredMovies);
       findedMovies = filteredMovies;
       findedShortMovies = filteredMovies.filter(
         (movie) => movie.duration <= 40

@@ -166,7 +166,7 @@ background: #000;
     transform: translateX(0);
   }
   .navigation__list {
-    gap: 621px;
+    gap: 444px;
     flex-direction: column;
     position: relative;
     z-index: 5;
