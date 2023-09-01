@@ -45,6 +45,7 @@ function App() {
   const findedLocalShortMovies = localStorage.getItem("findedShortMovies" || []);
   let findedMovies = JSON.parse(findedLocalMovies);
   let findedShortMovies = JSON.parse(findedLocalShortMovies);
+  const allBeatfilmMovies = localStorage.getItem("allMovies");
 
   const findedLocalMoviesSaved = localStorage.getItem("findedMoviesSaved" || []);
   const findedLocalShortMoviesSaved = localStorage.getItem("findedShortMoviesSaved" || []);
@@ -94,24 +95,6 @@ function App() {
     setSearchedSavedMovies(findedMoviesSaved);
   }
    }, [checkboxMoviesSaved]);
-  
-
-  // useEffect(()=>{
-  //   const filteredMovies = movies.filter((movie) => {
-  //     return movie.nameRU.toLowerCase().includes(searchText.toLowerCase());
-  //   });
-  //   // setPreloader(true);
-  //   if (filteredMovies.length < 1) {
-  //     setIsResult(false);
-  //     setSearchedMovies([]);}
-  //   if(saveCheckbox){
-  //     findedShortMovies = filteredMovies.filter(
-  //       (movie) => movie.duration <= 40
-  //     )
-  //     setSearchedMovies(findedShortMovies)
-  //   };
-  //   setSearchedMovies(filteredMovies);
-  // },[saveCheckbox, movies])
 
 function handleChangeCheckbox(){
   const change = !saveCheckbox;
@@ -299,8 +282,9 @@ useEffect(()=>{
 
   // обработчик поиска в Фильмах
   function searchMovies() {
+    // console.log(1221)
     const filteredMovies = movies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchText.toLowerCase());
+      return movie.nameRU.toLowerCase().includes(searchText.toLowerCase())
     });
     // setPreloader(true);
     if (filteredMovies.length < 1) {
@@ -326,33 +310,37 @@ useEffect(()=>{
     }
   }
 
-// useEffect(()=>{
-  // const savedSearch=localStorage.getItem("searchText");
-      // if(savedSearch){
-      //   setSearchText(savedSearch);
-      //   setIsSearched(true);
-      // }
-// })
-
-// function handleCheckbox(){
-  
-// setCheckbox(prev => !prev);
-// localStorage.getItem("checkbox")
-// }
-// function handleCheckboxSaved(){
-//   setCheckboxSaved(prev => !prev);
-//   }
-
   function handleSearchChange(e) {
     setSearchText(e.target.value);
   }
+  // function handleSearchSubmit(searchText) {
+  //   // e.preventDefault();
+  //   searchMovies(searchText);
+  //   setIsSearched(true);
+  //   setSearchText(searchText);
+  //   localStorage.setItem("searchText", searchText);
+  //   if (isLoggedIn) {
+  //     const moviesBeatFilm = [];
+  //     moviesApi
+  //       .getInitialMovies()
+  //       .then((movies) => {
+  //         movies.forEach((card) => {
+  //           moviesBeatFilm.push(changeArray(card));
+  //         });
+  //         setMovies(moviesBeatFilm);
+  //         localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
+  //       })
+  //       // setSearchText(searchText)
+  //       .catch((err) => {
+  //         console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+  //       });
+  //   }
+  // }
+
   function handleSearchSubmit(searchText) {
     // e.preventDefault();
-    searchMovies(searchText);
-    setIsSearched(true);
-    setSearchText(searchText);
-    localStorage.setItem("searchText", searchText);
-    if (isLoggedIn) {
+    
+    if (movies.length === 0) {
       const moviesBeatFilm = [];
       moviesApi
         .getInitialMovies()
@@ -362,12 +350,20 @@ useEffect(()=>{
           });
           setMovies(moviesBeatFilm);
           localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
+          searchMovies(searchText);
+          setIsSearched(true);
+          setSearchText(searchText);
+          localStorage.setItem("searchText", searchText);
         })
         // setSearchText(searchText)
         .catch((err) => {
           console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
         });
     }
+    searchMovies(searchText);
+    setIsSearched(true);
+    setSearchText(searchText);
+    localStorage.setItem("searchText", searchText);
   }
 
   // обработчик поиска в Сохраненных фильмах

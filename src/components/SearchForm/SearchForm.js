@@ -10,7 +10,6 @@ function SearchForm({
   handleCheckbox,
   setCheckbox,
   checkbox,
-
   saveCheckbox,
   handleChangeCheckbox,
 }) {
@@ -30,7 +29,6 @@ function SearchForm({
       return;
     } else {
       setSearchError("");
-      
       handleSearchSubmit(values.search);
     }
   }
