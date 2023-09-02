@@ -69,13 +69,13 @@ function App() {
   }, [isLoggedIn]);
 
   //получение данных о фильмах
-  // useEffect(() => {
-  //    const savedSearch=localStorage.getItem("searchText");
-  //     if(savedSearch){
-  //       setSearchText(savedSearch);
-  //       setIsSearched(true);
-  //     }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+     const savedSearch=localStorage.getItem("searchText");
+      if(savedSearch){
+        setSearchText(savedSearch);
+        setIsSearched(true);
+      }
+  }, [isLoggedIn]);
 
   const [saveCheckbox, setSaveCheckbox] = useState(false);
   const [checkboxMoviesSaved, setCheckboxMoviesSaved] = useState(false);
@@ -303,7 +303,7 @@ useEffect(() => {
    const savedSearch=localStorage.getItem("searchText");
     if(savedSearch){
       setSearchText(savedSearch);
-      // setIsSearched(true);
+      setIsSearched(true);
     }
 }, [isLoggedIn]);
 

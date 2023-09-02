@@ -8,8 +8,14 @@ export const MD_ROW_CARD_COUNT = 2;
 export const SM_ROW_CARD_COUNT = 2;
   
 export const LG_INITIAL_CARD_COUNT = 16;
+// export const LG_MD_INITIAL_CARD_COUNT = 12;
 export const MD_INITIAL_CARD_COUNT = 8;
 export const SM_INITIAL_CARD_COUNT = 5;
 
-// export const isDesktop = useMediaQuery("(min-width: 1280px)");
-// export const isTablet = useMediaQuery("(min-width: 480px)");
+export const DESKTOP = 1280;
+export const TABLET = 768;
+export const MOBILE = 480;
+
+  // const isDesktop = useMediaQuery("(min-width: 1280px)");
+  // const isTablet = useMediaQuery("(min-width: 768px)");
+  // const isMobile = useMediaQuery("(min-width: 480px)");

@@ -8,9 +8,11 @@ import {
   LG_INITIAL_CARD_COUNT,
   MD_INITIAL_CARD_COUNT,
   SM_INITIAL_CARD_COUNT,
+  DESKTOP,
+  TABLET,
 } from "../../utils/constants";
 // import { useResize } from "../../utils/useResize";
-import { useMediaQuery } from "../../utils/useMediaQuery";
+// import { useMediaQuery } from "../../utils/useMediaQuery";
 import { useLocation } from "react-router-dom";
 
 
@@ -24,66 +26,38 @@ function MoviesCardList({
   // const [isLoading, setIsLoading] = React.useState(false); //прелоадер
   // const width = useResize();
   const location = useLocation();
+  const [width, setWidth] = useState(window.innerWidth);
 
-  const [cards, setCards] = React.useState(null);
+  const [initialCardCount, setInitialCardCount] = useState(LG_INITIAL_CARD_COUNT);
+  const [addCard, setAddCard] = useState(LG_ROW_CARD_COUNT)
 
-  const isDesktop = useMediaQuery("(min-width: 1280px)");
-  const isTablet = useMediaQuery("(min-width: 768px)");
+  window.addEventListener("resize", function (e) {
+    setTimeout((e) => {
+      setWidth(window.innerWidth);
+    }, 100);
+  });
 
-  const cardColumnCount = isDesktop
-    ? LG_ROW_CARD_COUNT
-    : isTablet
-    ? MD_ROW_CARD_COUNT
-    : SM_ROW_CARD_COUNT;
+  function handleClick() {
+    setInitialCardCount(initialCardCount + addCard);
+  }
 
-  const initialCardCount = isDesktop
-    ? LG_INITIAL_CARD_COUNT
-    : isTablet
-    ? MD_INITIAL_CARD_COUNT
-    : SM_INITIAL_CARD_COUNT;
-
-  const [visibleCardCount, setVisibleCardCount] = React.useState(
-    initialCardCount
-  );
-
-  // const roundedVisibleCardCount = isDesktop
-  //   Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
-  //   : isTablet
-  //   ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
-  //   : Math.floor((visibleCardCount / cardColumnCount) * cardColumnCount)
-
-  const roundedVisibleCardCount = isDesktop 
-  ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount 
-  : isTablet 
-  ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount 
-  : Math.floor((visibleCardCount / cardColumnCount) * cardColumnCount);
-
-  React.useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((card) => setCards(card));
-  }, []);
-
-  const handleClick = () => {
-    calculateCardCount();
-  };
-
-  const calculateCardCount = () => {
-    if (isDesktop) {
-      return setVisibleCardCount(visibleCardCount + LG_ROW_CARD_COUNT);
+  useEffect(() => {
+    if(width >= DESKTOP){
+      setInitialCardCount(LG_INITIAL_CARD_COUNT);  //16
+      setAddCard(LG_ROW_CARD_COUNT);   //4
+    } else if(width < DESKTOP && width >= TABLET){
+      setInitialCardCount(MD_INITIAL_CARD_COUNT);   //8
+      setAddCard(MD_ROW_CARD_COUNT);    //2
+    } else if(width < TABLET){
+      setInitialCardCount(SM_INITIAL_CARD_COUNT);   //5
+      setAddCard(SM_ROW_CARD_COUNT);   //2
     }
-    if (isTablet) {
-      return setVisibleCardCount(visibleCardCount + MD_ROW_CARD_COUNT);
-    }
-    setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
-  };
-
-  // console.log(movies);
+    },[width]);
 
   return (
     <section className="card-list">
       <div className="card-list__container">
-        {movies.slice(0, roundedVisibleCardCount).map((movie) => {
+        {movies.slice(0, initialCardCount).map((movie) => {
           return (
             <MoviesCard
               key={movie.movieId}
@@ -96,12 +70,14 @@ function MoviesCardList({
         })
         }
       </div>
-      {movies.length > 15 && 
+      {
+      movies.length > 15 && 
       location.pathname === "/movies" && 
-      movies.length > roundedVisibleCardCount ? ( 
+      movies.length > initialCardCount ? ( 
         <button 
           className="card-list__more" 
-          onClick={handleClick} 
+          onClick={handleClick}
+          // onClick={addMovies}
         > 
           Ещё 
         </button> 
