@@ -7,9 +7,9 @@ function SearchForm({
   handleSearchSubmit,
   handleSearchChange,
   searchText,
-  handleCheckbox,
-  setCheckbox,
-  checkbox,
+  // handleCheckbox,
+  // setCheckbox,
+  // checkbox,
   saveCheckbox,
   handleChangeCheckbox,
 }) {

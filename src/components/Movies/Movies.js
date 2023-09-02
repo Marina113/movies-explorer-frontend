@@ -24,6 +24,8 @@ function Movies({
 
   saveCheckbox,
   handleChangeCheckbox,
+  setInitialCardCount,
+  initialCardCount
 }) {
 
   return (
@@ -51,6 +53,8 @@ function Movies({
             onLikeMovie={onLikeMovie}
             onDislikeMovie={onDislikeMovie}
             moreButton={moreButton}
+            setInitialCardCount={setInitialCardCount}
+            initialCardCount={initialCardCount}
           />
         ) : isSearched ? (
           <p className="movies__nothing">Ничего не найдено</p>

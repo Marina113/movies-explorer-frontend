@@ -23,6 +23,8 @@ function SavedMovies({
   handleCheckbox,
   saveCheckbox,
   handleChangeCheckbox,
+  setInitialCardCount,
+  initialCardCount
 }) {
   return (
     <>
@@ -45,6 +47,8 @@ function SavedMovies({
             savedMovies={savedMovies}
             onDislikeMovie={onDislikeMovie}
             // searchedMovies={searchedSavedMovies}
+            setInitialCardCount={setInitialCardCount}
+            initialCardCount={initialCardCount}
           />
         ) : preloader ? (
           <Preloader />

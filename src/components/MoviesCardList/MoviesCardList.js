@@ -21,14 +21,16 @@ function MoviesCardList({
   savedMovies,
   onLikeMovie,
   onDislikeMovie,
-  moreButton,
+  // moreButton,
+  initialCardCount,
+  setInitialCardCount
 }) {
   // const [isLoading, setIsLoading] = React.useState(false); //прелоадер
   // const width = useResize();
   const location = useLocation();
   const [width, setWidth] = useState(window.innerWidth);
 
-  const [initialCardCount, setInitialCardCount] = useState(LG_INITIAL_CARD_COUNT);
+  // const [initialCardCount, setInitialCardCount] = useState(LG_INITIAL_CARD_COUNT);
   const [addCard, setAddCard] = useState(LG_ROW_CARD_COUNT)
 
   window.addEventListener("resize", function (e) {
@@ -51,7 +53,8 @@ function MoviesCardList({
     } else if(width < TABLET){
       setInitialCardCount(SM_INITIAL_CARD_COUNT);   //5
       setAddCard(SM_ROW_CARD_COUNT);   //2
-    }
+    };
+    // setInitialCardCount
     },[width]);
 
   return (
