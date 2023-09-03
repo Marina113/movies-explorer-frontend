@@ -40,7 +40,10 @@ function SavedMovies({
           handleChangeCheckbox={handleChangeCheckbox}
           saveCheckbox={saveCheckbox}
         />
-        {movies?.length ? (
+        { preloader ? (
+          <Preloader />
+        ) :
+        movies?.length ? (
           <MoviesCardList
             movies={movies}
             // savedMovies={filteredMovies}
@@ -50,17 +53,15 @@ function SavedMovies({
             setInitialCardCount={setInitialCardCount}
             initialCardCount={initialCardCount}
           />
-        ) : preloader ? (
-          <Preloader />
-        ) : isSearched ? (
-          <p className="saved-movies__nothing">Ничего не найдено</p>
-        ) : (
-          ""
-        )}
-      </main>
-      <Footer />
-    </>
-  );
-}
+          ) : isSearched ? (
+            <p className="movies__nothing">Ничего не найдено</p>
+          ) : (
+            ""
+          )}
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
 export default SavedMovies;

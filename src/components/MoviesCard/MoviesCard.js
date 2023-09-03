@@ -4,10 +4,7 @@ import { useLocation } from "react-router-dom";
 
 function MoviesCard({ movie, onLikeMovie, onDislikeMovie, savedMovies }) {
   const location = useLocation();
-  // const isBtnSave = location === "/movies";
-  // const isBtnDelete = location === "/saved-movies";
   const [isLiked, setIsLiked] = useState(false); // стейт лайка
-  // const inSavedList = savedMovies?.find((c) => c.movieId === movie.movieId);
 
   //сохранение фильма
 
@@ -15,12 +12,9 @@ function MoviesCard({ movie, onLikeMovie, onDislikeMovie, savedMovies }) {
     if (!isLiked) {
       setIsLiked(true);
       onLikeMovie(movie);
-      // console.log(movie);
     }
     if (isLiked) {
-      // console.log(savedMovies);
       setIsLiked(false);
-      // onDislikeMovie(savedMovies.filter((i) => i.movieId === movie.movieId ));
       onDislikeMovie(movie);
     } else {
       setIsLiked(true);
@@ -32,8 +26,6 @@ function MoviesCard({ movie, onLikeMovie, onDislikeMovie, savedMovies }) {
     onDislikeMovie(movie);
     setIsLiked(false);
   }
-
-//   console.log(newMovies);
 
   useEffect(
     function () {
@@ -75,27 +67,13 @@ function MoviesCard({ movie, onLikeMovie, onDislikeMovie, savedMovies }) {
             {/* {isBtnSave && ( */}
               <button
                 type="button"
-                // className={`$(location.pathname === "/saved-movies"
-                //     ? "movie__btn-delete"
-                //     : "movie__btn-saved")
-                // `}
-
                 className={`${
                   location.pathname === "/movies"
                   ? buttonSaveMovie
                   : buttonDeleteMovie
                 }`}
-
                 onClick={location.pathname === "/movies" ? handleLikeMovie : handleDislikeMovie}
               />
-            {/* )} */}
-            {/* {isBtnDelete && (
-              <button
-                type="button"
-                className="movie__btn-delete"
-                onClick={handleDislikeMovie}
-              />
-            )} */}
           </div>
           <p className="movie__duration">{handleTime()}</p>
         </div>

@@ -15,13 +15,11 @@ import {
 // import { useMediaQuery } from "../../utils/useMediaQuery";
 import { useLocation } from "react-router-dom";
 
-
 function MoviesCardList({
   movies,
   savedMovies,
   onLikeMovie,
   onDislikeMovie,
-  // moreButton,
   initialCardCount,
   setInitialCardCount
 }) {
@@ -85,7 +83,8 @@ function MoviesCardList({
           Ещё 
         </button> 
       ) : ( 
-        "" 
+        // ""
+        setInitialCardCount()
       )}
     </section>
   );

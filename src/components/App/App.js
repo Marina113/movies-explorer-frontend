@@ -50,8 +50,6 @@ function App() {
   );
   const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
-  // const [checkbox, setCheckbox] = useState(false);
-  // const [checkbox, setCheckbox] = React.useState(JSON.parse(localStorage.getItem("findedShortMovies")) || []);
   const [checkboxSaved, setCheckboxSaved] = useState(false);
 
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
@@ -73,7 +71,7 @@ function App() {
 
   const [saveCheckbox, setSaveCheckbox] = useState(false);
   const [checkboxMoviesSaved, setCheckboxMoviesSaved] = useState(false);
-  // console.log(findedShortMovies);
+
   const [initialCardCount, setInitialCardCount] = useState(16);
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -281,10 +279,13 @@ function App() {
     setCurrentUser({});
     setSearchedMovies([]);
     setSearchSavedText("");
-    localStorage.removeItem("token");
     localStorage.removeItem("Result");
     localStorage.removeItem("ResultSaved");
     navigate("/");
+    setCheckboxMoviesSaved(false);
+
+    setSearchText("");
+    setSaveCheckbox(false);
   }
 
   //обработчик добавления фильмов в сохраненные
@@ -339,11 +340,11 @@ function App() {
           );
         });
     }
-    const savedSearch = localStorage.getItem("searchText");
-    if (savedSearch) {
-      setSearchText(savedSearch);
-      setIsSearched(true);
-    }
+    // const savedSearch = localStorage.getItem("searchText");
+    // if (savedSearch) {
+    //   setSearchText(savedSearch);
+    //   setIsSearched(true);
+    // }
   }, [isLoggedIn]);
 
   function searchMovies() {
@@ -376,7 +377,6 @@ function App() {
   }
 
   function handleSearchSubmit(searchText) {
-    // setInitialCardCount(initialCardCount);
     searchMovies(searchText);
     setIsSearched(true);
     setSearchText(searchText);
@@ -390,6 +390,7 @@ function App() {
 
   // обработчик поиска в Сохраненных фильмах
   function searchMoviesSaved() {
+    setIsSearched(false);
     const filteredMoviesSaved = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
     });
@@ -415,7 +416,7 @@ function App() {
         setSearchedSavedMovies(findedMoviesSaved);
       }
       setIsResult(true);
-      setCheckboxMoviesSaved(false);
+      // setCheckboxMoviesSaved(false);
       // setSearchSavedText();
     }
   }
