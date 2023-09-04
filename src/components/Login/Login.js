@@ -75,7 +75,7 @@ function Login({ handleLogin, isLoading, error }) {
             onChange={handleChange}
             placeholder="Пароль"
             value={values.password || ''}
-            minLength="6"
+            minLength="4"
             maxLength="12"
             autoComplete="off"
             required

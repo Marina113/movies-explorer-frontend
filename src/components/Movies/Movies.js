@@ -5,6 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
+import {ERROR_NOTHING} from "../../utils/constants";
 
 function Movies({
   movies,
@@ -25,7 +26,9 @@ function Movies({
   saveCheckbox,
   handleChangeCheckbox,
   setInitialCardCount,
-  initialCardCount
+  initialCardCount,
+
+  errorNothing
 }) {
 
   return (
@@ -56,8 +59,10 @@ function Movies({
             setInitialCardCount={setInitialCardCount}
             initialCardCount={initialCardCount}
           />
-        ) : isSearched ? (
-          <p className="movies__nothing">Ничего не найдено</p>
+        // ) : isSearched ? (
+        ) : errorNothing ? (
+          // <p className="movies__nothing">Ничего не найдено</p>
+          <p className="movies__nothing">{ERROR_NOTHING}</p>
         ) : (
           ""
         )}

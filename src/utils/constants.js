@@ -16,6 +16,9 @@ export const DESKTOP = 1280;
 export const TABLET = 768;
 export const MOBILE = 480;
 
+
+export const ERROR_NOTHING = "Ничего не найдено";
+
   // const isDesktop = useMediaQuery("(min-width: 1280px)");
   // const isTablet = useMediaQuery("(min-width: 768px)");
   // const isMobile = useMediaQuery("(min-width: 480px)");
