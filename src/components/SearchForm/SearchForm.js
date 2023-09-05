@@ -17,20 +17,18 @@ function SearchForm({
   const { values, setValues, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
   const location = useLocation;
 
-  useEffect(()=>{
-    resetForm({search:searchText});
-  },[resetForm, searchText])
+  useEffect(() => {
+    resetForm({ search: searchText });
+  }, [resetForm, searchText]);
   
   function handleSubmit(e) {
-    // console.log(searchText);
     e.preventDefault();
-    if (searchText === undefined || searchText === "") {
+    if (!values.search || values.search.trim() === "") {
       setSearchError("Введите символ");
       return;
-    } else {
-      setSearchError("");
-      handleSearchSubmit(values.search);
     }
+    setSearchError("");
+    handleSearchSubmit(values.search);
   }
 
   return (
@@ -41,7 +39,7 @@ function SearchForm({
           name="search-input"
           className="search__input"
           type="text"
-          value={values.search}
+          value={values.search || ""}
           onChange={handleSearchChange}
           placeholder="Фильм"
           // minLength="2"

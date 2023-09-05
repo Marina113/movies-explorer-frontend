@@ -51,7 +51,8 @@ function App() {
   );
   // const [isSearched, setIsSearched] = React.useState(false);
   const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
-  const [errorNothing, setErrorNothing] = useState("");
+  // const [errorNothing, setErrorNothing] = useState("");
+  const [errorNothing, setErrorNothing] = useState(false);
 
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
   const findedLocalShortMovies = localStorage.getItem(
@@ -276,6 +277,8 @@ function App() {
 
     setSearchText("");
     setSaveCheckbox(false);
+    setErrorNothing(false);
+    setIsSearchedSaved(false);
   }
 
   //обработчик добавления фильмов в сохраненные
@@ -308,48 +311,17 @@ function App() {
     // });
   }
 
-  //получение данных о фильмах
-  // useEffect(() => {
-  //   setIsSearched(false);
-    // if (isLoggedIn) {
-    //   const moviesBeatFilm = [];
-    //   moviesApi
-    //     .getInitialMovies()
-    //     .then((movies) => {
-    //       movies.forEach((card) => {
-    //         moviesBeatFilm.push(changeArray(card));
-    //       });
-    //       setMovies(moviesBeatFilm);
-    //       localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
-    //     })
-    //     // setSearchText(searchText)
-    //     .catch((err) => {
-    //       // console.log(err);
-    //       console.log(
-    //         "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-    //       );
-    //     });
-    // }
-    // const savedSearch = localStorage.getItem("searchText");
-    // if (savedSearch) {
-    //   setSearchText(savedSearch);
-    //   setIsSearched(true);
-  //   }
-  // }, [isLoggedIn]);
-
-    useEffect(() => {
+  useEffect(() => {
     const savedSearch = localStorage.getItem("searchText");
     if (savedSearch) {
       setSearchText(savedSearch);
-      // setIsSearched(true);
-      setErrorNothing("");
-         // setErrorNothing(ERROR_NOTHING);
+      setErrorNothing(false);
+      setIsSearchedSaved(false);
     }
   }, [isLoggedIn]);
 
   function searchMovies() {
-    // setIsSearched(false);
-    setErrorNothing("");
+    // setErrorNothing(false);
     const filteredMovies = movies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -359,7 +331,6 @@ function App() {
     if (filteredMovies.length < 1) {
       setIsResult(false);
       setSearchedMovies([]);
-      // setErrorNothing(ERROR_NOTHING);
     } else {
       findedMovies = filteredMovies;
       findedShortMovies = filteredMovies.filter(
@@ -380,38 +351,37 @@ function App() {
   }
 
   function handleSearchSubmit(searchText) {
-    if (isLoggedIn) {
-      const moviesBeatFilm = [];
-      moviesApi
-        .getInitialMovies()
-        .then((movies) => {
-          movies.forEach((card) => {
-            moviesBeatFilm.push(changeArray(card));
-          });
-          setMovies(moviesBeatFilm);
-          localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
-        })
-        .catch((err) => {
-          console.log(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
-        });
-    };
-    searchMovies(searchText);
-    // setIsSearched(true);
     setSearchText(searchText);
-    setErrorNothing(ERROR_NOTHING);
     resetCardCount();
-    localStorage.setItem("searchText", searchText);
+
+    if (movies.length > 0) {
+      searchMovies(searchText);
+    } else {
+      if (isLoggedIn) {
+        moviesApi
+          .getInitialMovies()
+          .then((movies) => {
+            const moviesBeatFilm = movies.map((card) => changeArray(card));
+            setMovies(moviesBeatFilm);
+            localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
+            searchMovies(searchText);
+          })
+          .catch((err) => {
+            console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз", err);
+          });
+      }
+    }
+    setErrorNothing(true);
   }
 
   function handleSearchChange(e) {
     setSearchText(e.target.value);
   }
 
-  // обработчик поиска в Сохраненных фильмах
   function searchMoviesSaved() {
     setIsSearchedSaved(false);
+    setCheckboxMoviesSaved(false);
+
     const filteredMoviesSaved = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
     });
@@ -427,15 +397,10 @@ function App() {
         "findedMoviesSaved",
         JSON.stringify(findedMoviesSaved)
       );
-      localStorage.setItem(
-        "findedShortMoviesSaved",
-        JSON.stringify(findedShortMoviesSaved)
+
+      setSearchedSavedMovies(
+        checkboxMoviesSaved ? findedShortMoviesSaved : findedMoviesSaved
       );
-      if (checkboxMoviesSaved) {
-        setSearchedSavedMovies(findedShortMoviesSaved);
-      } else {
-        setSearchedSavedMovies(findedMoviesSaved);
-      }
       setIsResult(true);
     }
   }
@@ -443,12 +408,18 @@ function App() {
   function handleSearchSavedChange(e) {
     setSearchSavedText(e.target.value);
   }
-  function handleSearchSavedSubmit() {
-    // e.preventDefault();
+  function handleSearchSavedSubmit(e) {
+    setSearchSavedText("");
     searchMoviesSaved();
-    setIsSearchedSaved(true);
     resetCardCount();
+    setIsSearchedSaved(true);
   }
+
+  useEffect(() => {
+    if (searchText) {
+      searchMovies();
+    }
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -474,7 +445,6 @@ function App() {
                     preloader={preloader}
                     // isSearched={isSearched}
                     errorNothing={errorNothing}
-
                     isResult={isResult}
                     searchText={searchText}
                     handleChangeCheckbox={handleChangeCheckbox}

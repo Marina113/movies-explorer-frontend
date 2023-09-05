@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import { useState } from "react";
+// import { useState } from "react";
 
 function SavedMovies({
   movies,
@@ -15,7 +15,6 @@ function SavedMovies({
   handleSearchChange,
   preloader,
   isSearched,
-  // searchedMovies,
   searchText,
   setCheckbox,
   checkbox,
@@ -26,6 +25,11 @@ function SavedMovies({
   setInitialCardCount,
   initialCardCount
 }) {
+
+  useEffect(() => {
+    handleSearchSubmit("");
+ 
+  }, []);
   return (
     <>
       <Header />
@@ -46,10 +50,8 @@ function SavedMovies({
         movies?.length ? (
           <MoviesCardList
             movies={movies}
-            // savedMovies={filteredMovies}
             savedMovies={savedMovies}
             onDislikeMovie={onDislikeMovie}
-            // searchedMovies={searchedSavedMovies}
             setInitialCardCount={setInitialCardCount}
             initialCardCount={initialCardCount}
           />

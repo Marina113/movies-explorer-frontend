@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 import "./Register.css";
 import { useFormWithValidation } from "../../utils/FormAndValid";
 
-function Register({ handleRegister, isLoading, error}) {
+function Register({ handleRegister, isLoading, error }) {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ function Register({ handleRegister, isLoading, error}) {
     } else {
       setIsDisabled(false);
     }
-  }, []);
+  }, [values.name, values.email, values.password]);
 
   return (
     <main className="register">

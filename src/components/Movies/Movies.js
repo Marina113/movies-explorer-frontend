@@ -61,8 +61,8 @@ function Movies({
           />
         // ) : isSearched ? (
         ) : errorNothing ? (
-          // <p className="movies__nothing">Ничего не найдено</p>
-          <p className="movies__nothing">{ERROR_NOTHING}</p>
+          <p className="movies__nothing">Ничего не найдено</p>
+          // <p className="movies__nothing">{ERROR_NOTHING}</p>
         ) : (
           ""
         )}
