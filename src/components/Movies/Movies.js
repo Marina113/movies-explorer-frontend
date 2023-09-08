@@ -5,7 +5,16 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import {ERROR_NOTHING} from "../../utils/constants";
+import {
+  LG_ROW_CARD_COUNT,
+  MD_ROW_CARD_COUNT,
+  SM_ROW_CARD_COUNT,
+  LG_INITIAL_CARD_COUNT,
+  MD_INITIAL_CARD_COUNT,
+  SM_INITIAL_CARD_COUNT,
+  DESKTOP,
+  TABLET,
+} from "../../utils/constants";
 
 function Movies({
   movies,
@@ -16,20 +25,50 @@ function Movies({
   handleSearchSubmit,
   handleSearchChange,
   preloader,
-  isResult,
-  isSearched,
   searchText,
   setCheckbox,
   checkbox,
   handleCheckbox,
-
   saveCheckbox,
   handleChangeCheckbox,
-  setInitialCardCount,
-  initialCardCount,
-
   errorNothing
 }) {
+
+  const [initialCardCount, setInitialCardCount] = useState(LG_INITIAL_CARD_COUNT);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [addCard, setAddCard] = useState(LG_ROW_CARD_COUNT);
+  window.addEventListener("resize", function (e) {
+    setTimeout((e) => {
+      setWidth(window.innerWidth);
+    }, 100);
+  });
+
+  useEffect(() => {
+    if (width >= DESKTOP) {
+      setInitialCardCount(LG_INITIAL_CARD_COUNT); //16
+      setAddCard(LG_ROW_CARD_COUNT); //4
+    } else if (width < DESKTOP && width >= TABLET) {
+      setInitialCardCount(MD_INITIAL_CARD_COUNT); //8
+      setAddCard(MD_ROW_CARD_COUNT); //2
+    } else if (width < TABLET) {
+      setInitialCardCount(SM_INITIAL_CARD_COUNT); //5
+      setAddCard(SM_ROW_CARD_COUNT); //2
+    }
+  }, [width]);
+
+  const resetCardCount = () => {
+    if (width >= DESKTOP) {
+      setInitialCardCount(LG_INITIAL_CARD_COUNT);
+    } else if (width < DESKTOP && width >= TABLET) {
+      setInitialCardCount(MD_INITIAL_CARD_COUNT);
+    } else {
+      setInitialCardCount(SM_INITIAL_CARD_COUNT);
+    }
+  };
+  
+  function handleClick() {
+    setInitialCardCount(initialCardCount + addCard);
+    }
 
   return (
     <>
@@ -42,7 +81,7 @@ function Movies({
           setCheckbox={setCheckbox}
           checkbox={checkbox}
           handleCheckbox={handleCheckbox}
-
+          resetCardCount={resetCardCount}
           handleChangeCheckbox={handleChangeCheckbox}
           saveCheckbox={saveCheckbox}
         />
@@ -50,19 +89,23 @@ function Movies({
           <Preloader />
         ) :
         movies?.length ? (
-          <MoviesCardList
-            movies={movies}
+            <>
+            <MoviesCardList
+            movies={movies.slice(0, initialCardCount)}
             savedMovies={savedMovies}
             onLikeMovie={onLikeMovie}
             onDislikeMovie={onDislikeMovie}
             moreButton={moreButton}
             setInitialCardCount={setInitialCardCount}
-            initialCardCount={initialCardCount}
+            addCard={addCard}
           />
-        // ) : isSearched ? (
+            {(movies.length > initialCardCount) &&
+            <button className="card-list__more" onClick={handleClick}>
+              Ещё
+            </button>}
+            </>
         ) : errorNothing ? (
           <p className="movies__nothing">Ничего не найдено</p>
-          // <p className="movies__nothing">{ERROR_NOTHING}</p>
         ) : (
           ""
         )}

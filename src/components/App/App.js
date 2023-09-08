@@ -25,7 +25,6 @@ import {
   SM_INITIAL_CARD_COUNT,
   DESKTOP,
   TABLET,
-  ERROR_NOTHING,
 } from "../../utils/constants";
 
 function App() {
@@ -43,16 +42,12 @@ function App() {
   const [searchText, setSearchText] = useState(""); //ввод текста в фильмах
   const [searchSavedText, setSearchSavedText] = useState(""); //ввод текста в сохр фильмах
   const [preloader, setPreloader] = React.useState(false);
-  const [isResult, setIsResult] = React.useState(
-    JSON.parse(localStorage.getItem("Result"))
-  );
-  const [isResultSaved, setIsResultSaved] = React.useState(
-    JSON.parse(localStorage.getItem("ResultSaved"))
-  );
+  const [isResult, setIsResult] = React.useState(false);
+  const [isResultSaved, setIsResultSaved] = React.useState(false);
+
   // const [isSearched, setIsSearched] = React.useState(false);
-  const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);
-  // const [errorNothing, setErrorNothing] = useState("");
-  const [errorNothing, setErrorNothing] = useState(false);
+  const [isSearchedSaved, setIsSearchedSaved] = React.useState(false);   //Ничего не найдено в сохр.фильмах
+  const [errorNothing, setErrorNothing] = useState(false);          //Ничего не найдено в фильмах
 
   const findedLocalMovies = localStorage.getItem("findedMovies" || []);
   const findedLocalShortMovies = localStorage.getItem(
@@ -73,25 +68,6 @@ function App() {
 
   const [saveCheckbox, setSaveCheckbox] = useState(false);
   const [checkboxMoviesSaved, setCheckboxMoviesSaved] = useState(false);
-
-  const [initialCardCount, setInitialCardCount] = useState(16);
-  const [width, setWidth] = useState(window.innerWidth);
-
-  window.addEventListener("resize", function (e) {
-    setTimeout((e) => {
-      setWidth(window.innerWidth);
-    }, 100);
-  });
-
-  const resetCardCount = () => {
-    if (width >= DESKTOP) {
-      setInitialCardCount(LG_INITIAL_CARD_COUNT);
-    } else if (width < DESKTOP && width >= TABLET) {
-      setInitialCardCount(MD_INITIAL_CARD_COUNT);
-    } else {
-      setInitialCardCount(SM_INITIAL_CARD_COUNT);
-    }
-  };
 
   //получение данных о пользователе и сохраненных фильмах
   useEffect(() => {
@@ -123,6 +99,16 @@ function App() {
     }
   }, [checkboxMoviesSaved]);
 
+
+
+
+  // function handleChangeCheckbox() {
+  //   const change = !saveCheckbox;
+  //   setSaveCheckbox(change);
+  //   localStorage.setItem("saveCheckbox", JSON.stringify(change));
+  // }
+
+
   function handleChangeCheckbox() {
     const change = !saveCheckbox;
     setSaveCheckbox(change);
@@ -132,7 +118,6 @@ function App() {
   function handleChangeCheckboxSaved() {
     const change = !checkboxMoviesSaved;
     setCheckboxMoviesSaved(change);
-    // localStorage.setItem("checkboxMoviesSaved",JSON.stringify(change));
   }
 
   useEffect(() => {
@@ -278,7 +263,6 @@ function App() {
     setSearchText("");
     setSaveCheckbox(false);
     setErrorNothing(false);
-    setIsSearchedSaved(false);
   }
 
   //обработчик добавления фильмов в сохраненные
@@ -316,7 +300,8 @@ function App() {
     if (savedSearch) {
       setSearchText(savedSearch);
       setErrorNothing(false);
-      setIsSearchedSaved(false);
+      // localStorage.setItem("searchText", JSON.stringify(savedSearch));
+      // setIsSearchedSaved(false);
     }
   }, [isLoggedIn]);
 
@@ -352,8 +337,7 @@ function App() {
 
   function handleSearchSubmit(searchText) {
     setSearchText(searchText);
-    resetCardCount();
-
+    localStorage.setItem("searchText", searchText);
     if (movies.length > 0) {
       searchMovies(searchText);
     } else {
@@ -364,7 +348,7 @@ function App() {
             const moviesBeatFilm = movies.map((card) => changeArray(card));
             setMovies(moviesBeatFilm);
             localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
-            searchMovies(searchText);
+            
           })
           .catch((err) => {
             console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз", err);
@@ -374,6 +358,10 @@ function App() {
     setErrorNothing(true);
   }
 
+  useEffect(()=>{
+    searchMovies(searchText);
+  },[movies]);
+
   function handleSearchChange(e) {
     setSearchText(e.target.value);
   }
@@ -381,12 +369,11 @@ function App() {
   function searchMoviesSaved() {
     setIsSearchedSaved(false);
     setCheckboxMoviesSaved(false);
-
     const filteredMoviesSaved = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchSavedText.toLowerCase());
     });
     if (filteredMoviesSaved.length < 1) {
-      setIsResult(false);
+      setIsResultSaved(false);
       setSearchedSavedMovies([]);
     } else {
       findedMoviesSaved = filteredMoviesSaved;
@@ -401,7 +388,7 @@ function App() {
       setSearchedSavedMovies(
         checkboxMoviesSaved ? findedShortMoviesSaved : findedMoviesSaved
       );
-      setIsResult(true);
+      setIsResultSaved(true);
     }
   }
 
@@ -411,7 +398,6 @@ function App() {
   function handleSearchSavedSubmit(e) {
     setSearchSavedText("");
     searchMoviesSaved();
-    resetCardCount();
     setIsSearchedSaved(true);
   }
 
@@ -449,8 +435,8 @@ function App() {
                     searchText={searchText}
                     handleChangeCheckbox={handleChangeCheckbox}
                     saveCheckbox={saveCheckbox}
-                    setInitialCardCount={setInitialCardCount}
-                    initialCardCount={initialCardCount}
+                    // setInitialCardCount={setInitialCardCount}
+                    // initialCardCount={initialCardCount}
                   />
                 }
               />
@@ -471,8 +457,8 @@ function App() {
                     searchText={searchSavedText}
                     handleChangeCheckbox={handleChangeCheckboxSaved}
                     saveCheckbox={checkboxMoviesSaved}
-                    setInitialCardCount={setInitialCardCount}
-                    initialCardCount={initialCardCount}
+                    // setInitialCardCount={setInitialCardCount}
+                    // initialCardCount={initialCardCount}
                   />
                 }
               />

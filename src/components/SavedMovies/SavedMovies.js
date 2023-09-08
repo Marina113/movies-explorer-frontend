@@ -18,18 +18,12 @@ function SavedMovies({
   searchText,
   setCheckbox,
   checkbox,
-  setIsResult,
+  isResult,
   handleCheckbox,
   saveCheckbox,
   handleChangeCheckbox,
-  setInitialCardCount,
-  initialCardCount
 }) {
 
-  useEffect(() => {
-    handleSearchSubmit("");
- 
-  }, []);
   return (
     <>
       <Header />
@@ -52,10 +46,8 @@ function SavedMovies({
             movies={movies}
             savedMovies={savedMovies}
             onDislikeMovie={onDislikeMovie}
-            setInitialCardCount={setInitialCardCount}
-            initialCardCount={initialCardCount}
           />
-          ) : isSearched ? (
+          ) :  isSearched ? (
             <p className="movies__nothing">Ничего не найдено</p>
           ) : (
             ""

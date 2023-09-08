@@ -7,20 +7,18 @@ function SearchForm({
   handleSearchSubmit,
   handleSearchChange,
   searchText,
-  // handleCheckbox,
-  // setCheckbox,
-  // checkbox,
   saveCheckbox,
   handleChangeCheckbox,
+  resetCardCount,
 }) {
   const [searchError, setSearchError] = useState("");
-  const { values, setValues, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
-  const location = useLocation;
+  const { values, resetForm } = useFormWithValidation();
+  const location = useLocation();
 
   useEffect(() => {
     resetForm({ search: searchText });
   }, [resetForm, searchText]);
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!values.search || values.search.trim() === "") {
@@ -28,6 +26,9 @@ function SearchForm({
       return;
     }
     setSearchError("");
+    if (location.pathname === "/movies") {
+      resetCardCount();
+    }
     handleSearchSubmit(values.search);
   }
 
@@ -42,16 +43,10 @@ function SearchForm({
           value={values.search || ""}
           onChange={handleSearchChange}
           placeholder="Фильм"
-          // minLength="2"
           maxLength="40"
           autoComplete="off"
-          // required
         />
-        <button
-          className="search__btn"
-          // onClick={callSearchFunction}
-          type="submit"
-        ></button>
+        <button className="search__btn" type="submit"></button>
       </form>
       <span className="switch__error">{searchError}</span>
       <div className="switch">
@@ -60,7 +55,6 @@ function SearchForm({
             className="switch__input"
             type="checkbox"
             checked={saveCheckbox}
-            // onChange={()=>{setCheckbox(!checkbox)}}
             onChange={handleChangeCheckbox}
           ></input>
           <span className="switch__slider"></span>

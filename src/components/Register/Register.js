@@ -42,7 +42,7 @@ function Register({ handleRegister, isLoading, error }) {
         <form
           className="register__form"
           onSubmit={handleSubmit}
-          isDisabled={isDisabled}
+          disabled={isDisabled}
         >
           <label htmlFor="name-input" className="register__label">
             Имя
@@ -86,7 +86,6 @@ function Register({ handleRegister, isLoading, error }) {
             autoComplete="off"
             required
           />
-          {/* <span className="register__error">{errors.email || ""}</span> */}
           <span
             className={`register__error ${
               !isValid ? "register__error_active" : ""
@@ -110,7 +109,6 @@ function Register({ handleRegister, isLoading, error }) {
             autoComplete="off"
             required
           />
-          {/* <span className="register__error">Что-то пошло не так...</span> */}
           <span
             className={`register__error ${
               !isValid ? "register__error_active" : ""
