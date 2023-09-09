@@ -19,13 +19,6 @@ import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-import {
-  LG_INITIAL_CARD_COUNT,
-  MD_INITIAL_CARD_COUNT,
-  SM_INITIAL_CARD_COUNT,
-  DESKTOP,
-  TABLET,
-} from "../../utils/constants";
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -71,14 +64,17 @@ function App() {
 
   //получение данных о пользователе и сохраненных фильмах
   useEffect(() => {
+    // setPreloader(true);
     if (isLoggedIn) {
       Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
         .then((data) => {
           setCurrentUser(data[0]);
           setSavedMovies(data[1]);
+          // setPreloader(false);
         })
         .catch((err) => {
           console.log(err);
+          // setPreloader(false);
         });
     }
   }, [isLoggedIn]);
@@ -98,16 +94,6 @@ function App() {
       setSearchedSavedMovies(findedMoviesSaved);
     }
   }, [checkboxMoviesSaved]);
-
-
-
-
-  // function handleChangeCheckbox() {
-  //   const change = !saveCheckbox;
-  //   setSaveCheckbox(change);
-  //   localStorage.setItem("saveCheckbox", JSON.stringify(change));
-  // }
-
 
   function handleChangeCheckbox() {
     const change = !saveCheckbox;
@@ -300,13 +286,11 @@ function App() {
     if (savedSearch) {
       setSearchText(savedSearch);
       setErrorNothing(false);
-      // localStorage.setItem("searchText", JSON.stringify(savedSearch));
-      // setIsSearchedSaved(false);
     }
   }, [isLoggedIn]);
 
   function searchMovies() {
-    // setErrorNothing(false);
+    setErrorNothing(false);
     const filteredMovies = movies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -333,9 +317,11 @@ function App() {
       }
       setIsResult(true);
     }
+    setPreloader(false);
   }
 
   function handleSearchSubmit(searchText) {
+    setPreloader(true);
     setSearchText(searchText);
     localStorage.setItem("searchText", searchText);
     if (movies.length > 0) {
@@ -348,11 +334,14 @@ function App() {
             const moviesBeatFilm = movies.map((card) => changeArray(card));
             setMovies(moviesBeatFilm);
             localStorage.setItem("allMovies", JSON.stringify(moviesBeatFilm));
-            
           })
           .catch((err) => {
             console.log("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз", err);
-          });
+            // setTimeout(() => setPreloader(false), 500);
+          })
+          .finally(() => {
+            setPreloader(false);
+        });
       }
     }
     setErrorNothing(true);
