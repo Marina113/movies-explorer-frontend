@@ -35,16 +35,16 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #e8e8e8;
-  padding-bottom: 16px;
+  /* border-bottom: 1px solid #e8e8e8; */
+  padding-bottom: 5px;
 }
 .profile__email {
   margin: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-top: 16px;
-  margin-bottom: 220px;
+  padding-top: 14px;
+  margin-bottom: 10px;
 }
 .profile__label {
   margin: 0;
@@ -68,10 +68,35 @@
   font-weight: 400;
   line-height: normal;
 }
-.profile__input:focus{
+.profile__input:focus {
   border: 1px solid #3861f5;
   border-radius: 7px;
   padding: 2px;
+}
+.profile__error {
+  margin: 0;
+  color: #ff004c;
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 14px;
+  text-align: left;
+}
+.profile__error_active-up {
+  opacity: 1;
+  border-bottom: 1px solid #e8e8e8;
+}
+.profile__error_active-down {
+  opacity: 1;
+}
+.profile__error_valid{
+  text-align: center;
+  
+}
+.profile__error_passiv{
+  opacity: 1;
 }
 .profile__edit {
   margin: 0;
@@ -80,6 +105,7 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 70px;
+  margin-top: 16px;
 }
 .profile__redactor {
   margin: 0;
@@ -104,11 +130,51 @@
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
-  
 }
 .profile__out:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+.profile__error-form{
+  text-align: center;
+  color: #4952d8;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 18px;
+  height: 100%;
+  margin-top: 220px;
+  display: block;
+  flex-wrap: wrap;
+  max-width: 390px;
+}
+.profile__save {
+  padding: 0;
+  border-radius: 3px;
+  background: #3456f3;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  /* max-width: 410px; */
+  width: 100%;
+  height: 45px;
+}
+.profile__save:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.profile__save:disabled {
+  background: #b8b2b2;
+  cursor: auto;
+}
+.profile__save:disabled:hover{
+  background: #b8b2b2;
+  cursor: auto;
+  opacity: 1;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -121,11 +187,11 @@
   .profile__title {
     margin-bottom: 96px;
   }
-  .profile__email {
-    margin-bottom: 208px;
-  }
   .profile__edit {
     margin-bottom: 269px;
+  }
+  .profile__error-form{
+    margin-top: 210px;
   }
 }
 
@@ -140,10 +206,17 @@
   .profile__title {
     margin-bottom: 78px;
   }
-  .profile__email {
-    margin-bottom: 379px;
+  .profile__name {
+    padding-bottom: 0;
+  }
+  .profile__error {
+    font-size: 9px;
+    line-height: 1.2;
   }
   .profile__edit {
     margin-bottom: 40px;
+  }
+  .profile__error-form{
+    margin-top: 379px;
   }
 }

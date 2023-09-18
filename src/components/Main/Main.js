@@ -11,11 +11,12 @@ import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
 
-function Main() {
+function Main({isLoggedIn}) {
   // const currentUser = React.useContext(CurrentUserContext);
   return (
     <>
-      <Header />
+      <Header 
+      isLoggedIn={isLoggedIn}/>
       <main className="content">
         <Promo />
         <NavTab />

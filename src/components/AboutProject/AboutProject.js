@@ -26,14 +26,14 @@ function AboutProject() {
             </p>
           </div>
         </div>
-        <div class="about-project__time">
-          <div class="about-project__line">
+        <div className="about-project__time">
+          <div className="about-project__line">
             <h3 className="about-project__weeks about-project__weeks_green">
               1 неделя
             </h3>
             <p className="about-project__weeks-text">Back-end</p>
           </div>
-          <div class="about-project__line">
+          <div className="about-project__line">
             <h3 className="about-project__weeks about-project__weeks-grey">
               4 недели
             </h3>

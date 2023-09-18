@@ -9,7 +9,7 @@ function AboutMe() {
       <div className="about-me__container">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__info">
-        <div div className="about-me__text">
+        <div className="about-me__text">
           <h3 className="about-me__name">Виталий</h3>
           <p className="about-me__profession">Фронтенд-разработчик, 30 лет</p>
           <p className="about-me__paragraph">

@@ -1,40 +1,105 @@
-import React from "react";
-// import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React, { useState, useEffect } from "react";
 import "./MoviesCard.css";
-import pictures1 from "../../images/pictures1.jpg";
-import pictures2 from "../../images/pictures2.jpg";
 import { useLocation } from "react-router-dom";
 
-function MoviesCard() {
-  // const currentUser = React.useContext(CurrentUserContext);
-const location = useLocation();
+function MoviesCard({ movie, onLikeMovie, onDislikeMovie, savedMovies }) {
+  const location = useLocation();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnlineStatus = () => {
+      setIsOnline(navigator.onLine);
+    };
+
+    window.addEventListener("online", handleOnlineStatus);
+    window.addEventListener("offline", handleOnlineStatus);
+
+    return () => {
+      window.removeEventListener("online", handleOnlineStatus);
+      window.removeEventListener("offline", handleOnlineStatus);
+    };
+  }, []);
+
+  function handleLikeMovie() {
+    if (!isOnline) {
+      return; 
+    }
+
+    if (!isLiked) {
+      setIsLiked(true);
+      onLikeMovie(movie);
+    } else {
+      setIsLiked(false);
+      onDislikeMovie(movie);
+    }
+  }
+
+  function handleDislikeMovie() {
+    if (!isOnline) {
+      return;
+    }
+
+    onDislikeMovie(movie);
+    setIsLiked(false);
+  }
+
+  useEffect(
+    function () {
+      const savedList = savedMovies?.map((list) => list.movieId);
+      setIsLiked(savedList?.includes(movie.movieId));
+    },
+    [movie.movieId, savedMovies]
+  );
+
+  const buttonSaveMovie = `movie__btn-saved  ${
+    isLiked && `movie__btn-saved_active`
+  }`;
+  const buttonDeleteMovie = `movie__btn-delete`;
+
+  function handleTime() {
+    let hours = Math.floor(movie.duration / 60);
+    let minutes = movie.duration % 60;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    if (hours < 1) {
+      return `${minutes}м`;
+    } else {
+      return `${hours}ч ${minutes}м`;
+    }
+  }
+
   return (
     <>
-    <div className="movie">
-      <img src={pictures1} alt="старое фото авто и детей" className="movie__picture" />
-      <div className="movie__block">
-        <div className="movie__info">
-          <h2 className="movie__name">33 слова о дизайне</h2>
-          <button type="button" className={location.pathname === "/movies"
-                    ? "movie__btn-saved"
-                    : "movie__btn-delete"}   />
+      <div className="movie">
+        <a href={movie.trailerLink} target="blank">
+          <img
+            src={movie.image}
+            alt={movie.nameRU}
+            className="movie__picture"
+          />
+        </a>
+        <div className="movie__block">
+          <div className="movie__info">
+            <h2 className="movie__name">{movie.nameRU}</h2>
+            <button
+              type="button"
+              className={`${
+                location.pathname === "/movies"
+                  ? buttonSaveMovie
+                  : buttonDeleteMovie
+              }`}
+              onClick={
+                location.pathname === "/movies"
+                  ? handleLikeMovie
+                  : handleDislikeMovie
+              }
+              disabled={!isOnline}
+            />
+          </div>
+          <p className="movie__duration">{handleTime()}</p>
         </div>
-        <p className="movie__duration">1ч42мин</p>
       </div>
-    </div>
-    <div className="movie">
-    <img src={pictures2} alt="старое фото авто и детей" className="movie__picture" />
-    <div className="movie__block">
-      <div className="movie__info">
-        <h2 className="movie__name">33 слова о дизайне</h2>
-        <button type="button" className={location.pathname === "/movies"
-                   ? "movie__btn-saved"
-                   : "movie__btn-delete"}   />
-      </div>
-      <p className="movie__duration">1ч42мин</p>
-    </div>
-  </div>
-  </>
+    </>
   );
 }
 

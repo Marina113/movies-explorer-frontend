@@ -3,9 +3,8 @@ import "./Header.css";
 import logo from "../../images/logo.svg";
 import { Link, useLocation } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
-// import Burger from "../Burger/Burger";
 
-function Header() {
+function Header({isLoggedIn}) {
   const location = useLocation();
   return (
     <header
@@ -23,7 +22,7 @@ function Header() {
               className="header__logo"
             />
           </Link>
-          {location.pathname === "/" && (
+          {!isLoggedIn && location.pathname === "/" && (
             <nav className="header__logo-list">
               <Link className="header__title" to="/signup">
                 Регистрация
@@ -33,8 +32,8 @@ function Header() {
               </Link>
             </nav>
           )}
+          {isLoggedIn && location.pathname === "/" && <Navigation />}
           {location.pathname === "/movies" && <Navigation />}
-          {/* {location.pathname === "/movies" && (<Burger />)} */}
           {location.pathname === "/saved-movies" && <Navigation />}
           {location.pathname === "/profile" && <Navigation />}
         </div>
